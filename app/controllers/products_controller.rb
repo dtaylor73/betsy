@@ -2,15 +2,16 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:merchant_id]
-      merchant = Merchant.find_by(id: params[:merchant_id])
-      @products = merchant.products
-    elsif params[:category_id]
-      category = Category.find_by(id: params[:category_id])
-      @products = category.products
-    else
-      @products = Product.all
-    end
+    # if params[:merchant_id]
+    #   merchant = Merchant.find_by(id: params[:merchant_id])
+    #   @products = merchant.products
+    # elsif params[:category_id]
+    #   category = Category.find_by(id: params[:category_id])
+    #   @products = category.products
+    # else
+    #   @products = Product.all
+    # end
+    @products = Product.where(status: true)
   end
 
   def show; end
@@ -61,6 +62,10 @@ class ProductsController < ApplicationController
 
   # Do we need a destroy action if we're going to toggle the product's active status?
   def destroy
+    @product.destroy
+    flash[:status] = :success
+    flash[:result_text] = "Product has been sucessfully destroyed"
+    redirect_to products_path
   end
 
   private
