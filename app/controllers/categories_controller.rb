@@ -1,17 +1,18 @@
 class CategoriesController < ApplicationController
+  
   def index
     @categories = Category.all
   end
-
+  
   def new
     @categories  = Category.new
   end
-
+  
   def create
     @category = Category.new(category_params) 
     if @category.save 
       flash[:success] = "Category added successfully"
-      redirect_to marchant_path 
+      redirect_to  root_path #merchant_path(@merchant)
       return
     else 
       flash.now[:failure] = "Category failed to save"
@@ -20,10 +21,33 @@ class CategoriesController < ApplicationController
     end
   end
   
-  def edit 
+  # def show
+  #   category_id = params[:id]
+  #   @category = Category.find_by(id: category_id)
+    
+  #   if @category.nil?
+  #     head :not_found
+  #     return
+  #   end     
+  # end
+  
+  def edit
+    @category = Category.find_by(id: params[:id])
+    
+    if @category.nil?
+      head :not_found
+      return
+    end
   end
-
+  
   def update
+    @category = Category.find_by(id: params[:id])
+    
+    if @category.nil?
+      head :not_found
+      return
+    end
+
     if @category.update(category_params)
       redirect_to root_path 
       return
@@ -45,5 +69,13 @@ class CategoriesController < ApplicationController
   def category_params
     return params.require(:category).permit(:name)
   end
-end
   
+  def if_category_missing
+    if @category.nil?
+      flash[:error] = "category with id #{params[:id]} was not find"
+      redirect_to root_path
+      return
+    end
+  end
+end
+
