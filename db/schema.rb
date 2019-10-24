@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_22_231526) do
+ActiveRecord::Schema.define(version: 2019_10_24_014759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2019_10_22_231526) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "UID"
+    t.string "provider"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -41,6 +43,7 @@ ActiveRecord::Schema.define(version: 2019_10_22_231526) do
     t.datetime "updated_at", null: false
     t.bigint "product_id"
     t.bigint "order_id"
+    t.boolean "shipping_status"
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
@@ -52,9 +55,12 @@ ActiveRecord::Schema.define(version: 2019_10_22_231526) do
     t.string "address"
     t.string "email"
     t.integer "credit_card_num"
-    t.date "expiration_date"
     t.integer "cvv"
     t.integer "zip"
+    t.string "status"
+    t.float "total_price"
+    t.datetime "placed_time"
+    t.string "expiration_date"
   end
 
   create_table "products", force: :cascade do |t|
@@ -63,6 +69,11 @@ ActiveRecord::Schema.define(version: 2019_10_22_231526) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "merchant_id"
+    t.string "description"
+    t.string "photo_url"
+    t.boolean "status"
+    t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -70,6 +81,7 @@ ActiveRecord::Schema.define(version: 2019_10_22_231526) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "product_id"
+    t.string "text"
     t.index ["product_id"], name: "index_reviews_on_product_id"
   end
 
