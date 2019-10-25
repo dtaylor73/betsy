@@ -1,4 +1,4 @@
-username,email,uid,provider
+username,email,UID,provider
 earth_plants,earth_plants@gmail.com,1234,github
 green_leaf,green_leaf@gmail.com,9999,github
 green_thumb,green_thumb@gmail.com,2345,github
