@@ -13,9 +13,9 @@ CSV.foreach(MERCHANT_FILE, :headers => true) do |row|
   merchant.email = row["email"]
   merchant.uid = row["uid"]
   merchant.provider = row["provider"]
-  successful_mer = merchant.save
+  successful = merchant.save
 
-  if !successful_mer
+  if !successful
     merchant_failures << merchant
     puts "Failed to save merchant: #{merchant.inspect}"
   else
@@ -32,7 +32,7 @@ PRODUCT_FILE = Rails.root.join("db", "product-seeds.csv")
 puts "Loading raw product data from #{PRODUCT_FILE}"
 
 product_failures = []
-category = Category.where(name: "Accessories")
+# category = Category.where(name: "Accessories")
 CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product = Product.new
 
@@ -43,11 +43,11 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.description = row["description"]
   product.photo_url = row["photo_url"]
   product.status = row["status"]
-  product.categories = category
+  # product.categories = category
 
-  successful_prod = product.save
+  successful = product.save
 
-  if !successful_prod
+  if !successful
     product_failures << product
     puts "Failed to save product: #{product.inspect}"
   else
@@ -69,9 +69,9 @@ CSV.foreach(CATEGORY_FILE, :headers => true) do |row|
 
   category.name = row["name"]
 
-  successful_cat = category.save
+  successful = category.save
 
-  if !successful_cat
+  if !successful
     category_failures << category
     puts "Failed to save category: #{category.inspect}"
   else
@@ -102,9 +102,9 @@ CSV.foreach(ORDER_FILE, :headers => true) do |row|
   order.total_price = row["total_price"]
   order.placed_time = row["placed_time"]
 
-  successful_ord = order.save
+  successful = order.save
 
-  if !successful_ord
+  if !successful
     order_failures << order
     puts "Failed to save order: #{order.inspect}"
   else
@@ -129,9 +129,9 @@ CSV.foreach(ORDER_ITEM_FILE, :headers => true) do |row|
   order_item.order_id = row["order_id"]
   order_item.shipping_status = row["shipping_status"]
 
-  successful_order_item = order_item.save
+  successful = order_item.save
 
-  if !successful_order_item
+  if !successful
     order_item_failures << order_item
     puts "Failed to save order item: #{order_item.inspect}"
   else
@@ -155,9 +155,9 @@ CSV.foreach(REVIEW_FILE, :headers => true) do |row|
   review.text = row["text"]
   review.product_id = row["product_id"]
 
-  successful_review = review.save
+  successful = review.save
 
-  if !successful_review
+  if !successful
     review_failures << review
     puts "Failed to save review: #{review.inspect}"
   else
@@ -169,11 +169,11 @@ puts "Added #{Review.count} review records"
 puts "#{review.length} reviews failed to save"
 
 # Categories Products seeds
+# We will have to test whether the products are populating the categories through rails console just to double check..
 
 CATEGORIES_PRODUCTS_FILE = Rails.root.join("db", "categories-products-seeds.csv")
-puts "Loading raw review data from #{CATEGORIES_PRODUCTS_FILE}"
+puts "Loading raw categories-products data from #{CATEGORIES_PRODUCTS_FILE}"
 
-categories_products_failures = []
 CSV.foreach(CATEGORIES_PRODUCTS_FILE, :headers => true) do |row|
   category = Category.find_by(id: row["category_id"])
   product = Product.find_by(id: row["product_id"])
