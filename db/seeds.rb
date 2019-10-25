@@ -1,5 +1,7 @@
 require "csv"
 
+# Merchant seeds
+
 MERCHANT_FILE = Rails.root.join("db", "merchant-seeds.csv")
 puts "Loading raw merchant data from #{MERCHANT_FILE}"
 
@@ -24,10 +26,13 @@ end
 puts "Added #{Merchant.count} merchant records"
 puts "#{merchant_failures.length} merchants failed to save"
 
+# Product seeds
+
 PRODUCT_FILE = Rails.root.join("db", "product-seeds.csv")
 puts "Loading raw product data from #{PRODUCT_FILE}"
 
 product_failures = []
+category = Category.where(name: "Accessories")
 CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product = Product.new
 
@@ -38,6 +43,7 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.description = row["description"]
   product.photo_url = row["photo_url"]
   product.status = row["status"]
+  product.categories = category
 
   successful_prod = product.save
 
@@ -51,6 +57,8 @@ end
 
 puts "Added #{Product.count} product records"
 puts "#{product_failures.length} products failed to save"
+
+# Category seeds
 
 CATEGORY_FILE = Rails.root.join("db", "category-seeds.csv")
 puts "Loading raw category data from #{CATEGORY_FILE}"
@@ -74,6 +82,8 @@ end
 puts "Added #{Category.count} category records"
 puts "#{category_failures.length} categories failed to save"
 
+# Order seeds
+
 ORDER_FILE = Rails.root.join("db", "order-seeds.csv")
 puts "Loading raw order data from #{ORDER_FILE}"
 
@@ -89,7 +99,8 @@ CSV.foreach(ORDER_FILE, :headers => true) do |row|
   order.cvv = row["cvv"]
   order.zip = row["zip"]
   order.status = row["status"]
-  # total_price, placed_time??
+  order.total_price = row["total_price"]
+  order.placed_time = row["placed_time"]
 
   successful_ord = order.save
 
@@ -103,3 +114,69 @@ end
 
 puts "Added #{Order.count} order records"
 puts "#{order_failures.length} orders failed to save"
+
+# Order-Item seeds
+
+ORDER_ITEM_FILE = Rails.root.join("db", "order-item-seeds.csv")
+puts "Loading raw order data from #{ORDER_ITEM_FILE}"
+
+order_item_failures = []
+CSV.foreach(ORDER_ITEM_FILE, :headers => true) do |row|
+  order_item = OrderItem.new
+
+  order_item.quantity = row["quantity"]
+  order_item.product_id = row["product_id"]
+  order_item.order_id = row["order_id"]
+  order_item.shipping_status = row["shipping_status"]
+
+  successful_order_item = order_item.save
+
+  if !successful_order_item
+    order_item_failures << order_item
+    puts "Failed to save order item: #{order_item.inspect}"
+  else
+    puts "Created order_item: #{order_item.inspect}"
+  end
+end
+
+puts "Added #{OrderItem.count} order item records"
+puts "#{order_item_failures.length} order items failed to save"
+
+# Review seeds
+
+REVIEW_FILE = Rails.root.join("db", "review-seeds.csv")
+puts "Loading raw review data from #{REVIEW_FILE}"
+
+review_failures = []
+CSV.foreach(REVIEW_FILE, :headers => true) do |row|
+  review = Review.new
+
+  review.rating = row["rating"]
+  review.text = row["text"]
+  review.product_id = row["product_id"]
+
+  successful_review = review.save
+
+  if !successful_review
+    review_failures << review
+    puts "Failed to save review: #{review.inspect}"
+  else
+    puts "Created review: #{review.inspect}"
+  end
+end
+
+puts "Added #{Review.count} review records"
+puts "#{review.length} reviews failed to save"
+
+# Categories Products seeds
+
+CATEGORIES_PRODUCTS_FILE = Rails.root.join("db", "categories-products-seeds.csv")
+puts "Loading raw review data from #{CATEGORIES_PRODUCTS_FILE}"
+
+categories_products_failures = []
+CSV.foreach(CATEGORIES_PRODUCTS_FILE, :headers => true) do |row|
+  category = Category.find_by(id: row["category_id"])
+  product = Product.find_by(id: row["product_id"])
+
+  product.categories << category
+end
