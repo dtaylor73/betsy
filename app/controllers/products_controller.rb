@@ -28,16 +28,16 @@ class ProductsController < ApplicationController
       if @product.save
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully created"
-        redirect_to products_path
+        return redirect_to products_path
       else
         flash[:status] = :failure
         flash[:result_text] = "Invalid product info. Please try again."
-        render :new, status: :bad_request
+        return render :new, status: :bad_request
       end
     else
       flash[:status] = :failure
       flash[:result_text] = "Only logged in merchants can create products"
-      render :new, status: :bad_request
+      return render :new, status: :bad_request
     end
   end
 
@@ -48,7 +48,7 @@ class ProductsController < ApplicationController
       if @product.update(product_params)
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully updated"
-        redirect_to product_path(@product)
+        return redirect_to product_path(@product)
       else
         flash[:status] = :failure
         flash[:result_text] = "Invalid data. Please try again"
@@ -56,21 +56,46 @@ class ProductsController < ApplicationController
     else
       flash[:status] = :failure
       flash[:result_text] = "Only logged in merchants can create products"
-      render :edit
+      return render :edit
     end
   end
 
   # Do we need a destroy action if we're going to toggle the product's active status?
-  def destroy
-    @product.destroy
-    flash[:status] = :success
-    flash[:result_text] = "Product has been sucessfully destroyed"
-    redirect_to products_path
+  # def destroy
+  #   @product.destroy
+  #   flash[:status] = :success
+  #   flash[:result_text] = "Product has been sucessfully destroyed"
+  #   return redirect_to products_path
+  # end
+
+  def toggle_active
+    @product = Product.find_by(id: params[:id])
+
+    if @product.nil?
+      return redirect_to products_path
+    else
+      @product.status = true
+      @product.save
+      return redirect_to product_path(@product)
+    end
+  end
+
+  def toggle_inactive
+    @product = Product.find_by(id: params[:id])
+
+    if @product.nil?
+      return redirect_to products_path
+    else
+      @product.status = false
+      @product.save
+      return redirect_to product_path(@product)
+    end
   end
 
   private
 
   def product_params
+    # Need to add additional fields for Product such as photo_url, status, etc.
     params.require(:product).permit(:name, :price, :quantity, category_ids: [])
   end
 
