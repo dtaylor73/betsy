@@ -11,7 +11,6 @@ class OrdersController < ApplicationController
       redirect_to confirmation_page_path
     end
 
-
     
     if @order.nil?
       head :not_found
