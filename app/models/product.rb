@@ -7,10 +7,8 @@ class Product < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :price , presence: true, numericality: {only_integer: true, greater_than: 0}
 
-  def get_product_id
+  def self.get_product_id
     session[:product_ids] = []
     session[:product_ids] << Product.find_by(id: params[:id])
-
-
   end 
 end
