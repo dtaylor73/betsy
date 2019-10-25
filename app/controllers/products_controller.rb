@@ -14,8 +14,6 @@ class ProductsController < ApplicationController
     @products = Product.where(status: true)
   end
 
-  def show; end
-
   def new
     @product = Product.new
   end
@@ -40,6 +38,8 @@ class ProductsController < ApplicationController
       return render :new, status: :bad_request
     end
   end
+
+  def show; end
 
   def edit; end
 
