@@ -24,12 +24,12 @@ class CategoriesController < ApplicationController
   end
   
   def show
-    # category_id = params[:id]
-    # @category = Category.find_by(id: category_id)
-    # if @category.nil?
-    #   head :not_found
-    #   return
-    # end     
+    category_id = params[:id]
+    @category = Category.find_by(id: category_id)
+    if @category.nil?
+      head :not_found
+      return
+    end     
   end
   
   # def edit
