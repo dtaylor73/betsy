@@ -1,13 +1,21 @@
 <h2 class="product-title">Our Products</h2>
+  <% if params[:category_id] %>
+      <h2>List of Products: <%= Category.find(params[:category_id]).name %>
+    <% elsif params[:merchant_id] %>
+      <h2><%= Merchant.find(params[:merchant_id]).username %>'s shop </h2>
+    <% else %>
+      <h2>All Products</h2>
+  <% end %>
 
 <section class="index-product-container">
-<% @products.each do |product| %>
-  <%= image_tag product.photo_url, alt: "image of plant product" %> <br>
-  <article class="product-text">
-  <h3><%= product.name %></h3>
-  $<h3><%= product.price %></h3>
-  </article>
-<% end %>
+  <% @products.each do |product| %>
+    <%= image_tag product.photo_url, alt: "image of plant product" %> <br>
+    <article class="product-text">
+    <h3><%= product.name %></h3>
+    $<h3><%= product.price %></h3>
+    </article>
+  <% end %>
 </section>
+
 
 <%# Loop through the products and display the photo and name %>
