@@ -19,8 +19,12 @@
 
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
 
-* {
+*, .product-title {
   font-family: "Amatic SC";
+}
+
+.product-title {
+  text-align: center;
 }
 
 nav {
@@ -103,4 +107,25 @@ nav {
 
 .dropdown:hover .dropdown-content{
   display: block;
+}
+
+.index-product-container {
+  width:400px;
+  grid-template-columns: 1fr 1fr 1fr;
+  flex-direction: row;
+  text-align:center;
+  display:block;
+  justify-content: center;
+  background-color: transparent;
+  border: 1px solid transparent;
+  margin-left: 32rem;
+  margin-bottom: 1px;
+  float:left;
+}
+
+.index-product-container img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  text-align: center;
 }

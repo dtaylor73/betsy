@@ -1,8 +1,11 @@
-<h2>Our Products</h2>
+<h2 class="product-title">Our Products</h2>
 
+<section class="index-product-container">
 <% @products.each do |product| %>
-  <%= product.photo_url %> <br>
-  <%= product.name %>
+  <%= image_tag product.photo_url, alt: "image of product" %> <br>
+  <h3><%= product.name %></h3>
+  $<%= product.price %>
 <% end %>
+</section>
 
 <%# Loop through the products and display the photo and name %>
