@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root "homepages#index"
+
   resources :products
 
   patch "/products/:id/active", to: "products#toggle_active", as: "toggle_active"
