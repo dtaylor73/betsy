@@ -118,31 +118,31 @@ puts "#{order_failures.length} orders failed to save"
 
 # Order-Item seeds
 
-# ORDER_ITEM_FILE = Rails.root.join("db", "order-item-seeds.csv")
-# puts "Loading raw order data from #{ORDER_ITEM_FILE}"
+ORDER_ITEM_FILE = Rails.root.join("db", "order-item-seeds.csv")
+puts "Loading raw order data from #{ORDER_ITEM_FILE}"
 
-# order_item_failures = []
-# CSV.foreach(ORDER_ITEM_FILE, :headers => true) do |row|
-#   order_item = OrderItem.new
+order_item_failures = []
+CSV.foreach(ORDER_ITEM_FILE, :headers => true) do |row|
+  order_item = OrderItem.new
 
-#   order_item.quantity = row["quantity"]
-#   order_item.product_id = row["product_id"]
-#   order_item.order_id = row["order_id"]
-#   order_item.shipping_status = row["shipping_status"]
+  order_item.quantity = row["quantity"]
+  order_item.product_id = row["product_id"]
+  order_item.order_id = row["order_id"]
+  order_item.shipping_status = row["shipping_status"]
 
-#   successful = order_item.save
+  successful = order_item.save
 
-#   if !successful
-#     order_item_failures << order_item
-#     puts "Failed to save order item: #{order_item.inspect}"
-#     puts "ERROR MESSAGES:************* #{order_item.errors.messages}"
-#   else
-#     puts "Created order_item: #{order_item.inspect}"
-#   end
-# end
+  if !successful
+    order_item_failures << order_item
+    puts "Failed to save order item: #{order_item.inspect}"
+    puts "ERROR MESSAGES:************* #{order_item.errors.messages}"
+  else
+    puts "Created order_item: #{order_item.inspect}"
+  end
+end
 
-# puts "Added #{OrderItem.count} order item records"
-# puts "#{order_item_failures.length} order items failed to save"
+puts "Added #{OrderItem.count} order item records"
+puts "#{order_item_failures.length} order items failed to save"
 
 # Review seeds
 
@@ -172,14 +172,14 @@ puts "#{order_failures.length} orders failed to save"
 
 # Categories Products seeds
 # We will have to test whether the products are populating the categories through rails console just to double check..
-# CATEGORIES_PRODUCTS_FILE = Rails.root.join("db", "categories-products-seeds.csv")
-# puts "Loading raw categories-products data from #{CATEGORIES_PRODUCTS_FILE}"
+CATEGORIES_PRODUCTS_FILE = Rails.root.join("db", "categories-products-seeds.csv")
+puts "Loading raw categories-products data from #{CATEGORIES_PRODUCTS_FILE}"
 
-# CSV.foreach(CATEGORIES_PRODUCTS_FILE, :headers => true) do |row|
-#   category = Category.find_by(id: row["category_id"])
-#   puts "#{category} THIS IS THE CATEGORY!!!"
-#   product = Product.find_by(id: row["product_id"])
-#   puts "#{product} THIS IS THE PRODUCT!!!!"
+CSV.foreach(CATEGORIES_PRODUCTS_FILE, :headers => true) do |row|
+  category = Category.find_by(id: row["category_id"])
+  puts "#{category} THIS IS THE CATEGORY!!!"
+  product = Product.find_by(id: row["product_id"])
+  puts "#{product} THIS IS THE PRODUCT!!!!"
 
-#   product.categories << category
-# end
+  product.categories << category
+end

@@ -96,7 +96,7 @@ class ProductsController < ApplicationController
 
   def product_params
     # Need to add additional fields for Product such as photo_url, status, etc.
-    params.require(:product).permit(:name, :price, :quantity, category_ids: [])
+    params.require(:product).permit(:name, :price, :quantity, :merchant_id, :description, :photo_url, :status, category_ids: [])
   end
 
   def find_product
