@@ -1,9 +1,7 @@
 
-    <h2>Our Products</h2>
-
-<% @products.each do |product| %>
-  <%= product.photo_url %> <br>
-  <%= product.name %>
-<% end %>
-
-<%# Loop through the products and display the photo and name %>
+   <% @categories.each do |category|%>
+      <tr>  
+      <td><%= link_to category.name, category_path(category.id)%></td> 
+      <%#do we need to add protucts here for path%>
+      </tr>
+    <%end%>

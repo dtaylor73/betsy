@@ -2,6 +2,7 @@ class CategoriesController < ApplicationController
 
   before_action :find_category, only: [:show]
   before_action :if_category_missing, only: [:show]
+
   def index
     @categories = Category.all
   end
@@ -23,14 +24,14 @@ class CategoriesController < ApplicationController
     end
   end
   
-  def show
-    category_id = params[:id]
-    @category = Category.find_by(id: category_id)
-    if @category.nil?
-      head :not_found
-      return
-    end     
-  end
+  # def show
+  #   category_id = params[:id]
+  #   @category = Category.find_by(id: category_id)
+  #   if @category.nil?
+  #     head :not_found
+  #     return
+  #   end     
+  # end
   
   # def edit
   #   @category = Category.find_by(id: params[:id])
