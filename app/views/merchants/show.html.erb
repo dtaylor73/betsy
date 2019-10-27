@@ -1,0 +1,14 @@
+<h1> <%= @merchant.username %>'s shop </h1>
+
+<ul>
+  <% @merchant.products.each do |product| %>
+    <li> <%= product.name %> </li>
+  <% end %>
+</ul>
+
+
+  <figure class="figure">
+    <img src=<%= product.photo_url %> class="figure-img img-fluid rounded" alt="<%= product.name %>">
+    <figcaption class="figure-caption"> <%= product.name %> </figcaption>
+    <figcaption class="figure-caption"> <%= product.price %> </figcaption>
+  </figure>
