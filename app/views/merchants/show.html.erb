@@ -1,9 +1,12 @@
-<h1> <%= @merchant.username %>'s shop </h1>
-
-<% @merchant.products.each do |product| %>
-  <figure class="figure">
-    <img src=<%= product.photo_url %> class="figure-img img-fluid rounded" alt=<%= product.name %>>
-    <figcaption class="figure-caption"> <%= product.name %> </figcaption>
-    <figcaption class="figure-caption"> $<%= product.price %> </figcaption>
-  </figure>
+<% if @merchant.id == session[:user_id] %>
+  <%= render(partial: "dashboard") %>
+<% else %>
+  <h1> <%= @merchant.username %>'s shop </h1>
+  <% @merchant.products.each do |product| %>
+    <figure class="figure">
+      <img src=<%= product.photo_url %> class="figure-img img-fluid rounded" alt=<%= product.name %>>
+      <figcaption class="figure-caption"> <%= product.name %> </figcaption>
+      <figcaption class="figure-caption"> $<%= product.price %> </figcaption>
+    </figure>
+  <% end %>
 <% end %>
