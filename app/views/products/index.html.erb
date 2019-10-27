@@ -1,10 +1,11 @@
-<h2 class="product-title">Our Products</h2>
+<section class="product-container">
+<%# <h2 class="product-title">Our Products</h2> %>
   <% if params[:category_id] %>
-      <h2>List of Products: <%= Category.find(params[:category_id]).name %>
+      <h2 class="product-title">List of Products: <%= Category.find(params[:category_id]).name %>
     <% elsif params[:merchant_id] %>
       <h2><%= Merchant.find(params[:merchant_id]).username %>'s shop </h2>
     <% else %>
-      <h2>All Products</h2>
+
   <% end %>
 
 <section class="index-product-container">
@@ -12,9 +13,10 @@
     <%= image_tag product.photo_url, alt: "image of plant product" %> <br>
     <section class="product-text">
     <h3><%= product.name %></h3>
-    $<h3><%= product.price %></h3>
+    <h3><%= number_to_currency product.price %></h3>
     </section>
   <% end %>
+</section>
 </section>
 
 

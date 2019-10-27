@@ -40,6 +40,16 @@ nav {
   background-size: cover;
 }
 
+#header{
+  position: absolute;
+  padding: 50px;
+  z-index: 1000;
+  top: 200px;
+  left: 550px;
+  background-color: whitesmoke;
+  opacity: 0.8;
+}
+
 .nav-bar {
   background-color: lightgrey;
   padding: 15px;
@@ -132,7 +142,7 @@ nav {
   justify-content: center;
 }
 
-.index-product-container img {
+img {
   width: 100%;
   max-width: 300px;
   height: auto;
