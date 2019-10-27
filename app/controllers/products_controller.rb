@@ -4,10 +4,19 @@ class ProductsController < ApplicationController
   def index
     if params[:merchant_id]
       merchant = Merchant.find_by(id: params[:merchant_id])
-      @products = merchant.products
+      if merchant == nil
+        return head :not_found
+      else
+        # merchant = Merchant.find_by(id: params[:merchant_id])
+        @products = merchant.products
+      end
     elsif params[:category_id]
       category = Category.find_by(id: params[:category_id])
-      @products = category.products
+      if category == nil
+        return head :not_found
+      else
+        @products = category.products
+      end
     else
       @products = Product.where(status: true)
     end
@@ -19,23 +28,23 @@ class ProductsController < ApplicationController
   end
 
   def create
-    if session[:user_id]
+    if session[:merchant_id]
       @product = Product.new(product_params)
-      @product.merchant_id = session[:user_id]
+      @product.merchant_id = session[:merchant_id]
 
       if @product.save
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully created"
-        return redirect_to products_path
+        redirect_to products_path
       else
         flash[:status] = :failure
         flash[:result_text] = "Invalid product info. Please try again."
-        return render :new, status: :bad_request
+        render :new, status: :bad_request
       end
     else
       flash[:status] = :failure
       flash[:result_text] = "Only logged in merchants can create products"
-      return render :new, status: :bad_request
+      render :new, status: :bad_request
     end
   end
 
@@ -44,11 +53,11 @@ class ProductsController < ApplicationController
   def edit; end
 
   def update
-    if session[:user_id] && (session[:user_id] == @product.merchant_id)
+    if session[:merchant_id] && (session[:merchant_id] == @product.merchant_id)
       if @product.update(product_params)
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully updated"
-        return redirect_to product_path(@product)
+        redirect_to product_path(@product)
       else
         flash[:status] = :failure
         flash[:result_text] = "Invalid data. Please try again"
@@ -56,7 +65,7 @@ class ProductsController < ApplicationController
     else
       flash[:status] = :failure
       flash[:result_text] = "Only logged in merchants can create products"
-      return render :edit
+      render :edit, status: :not_found
     end
   end
 

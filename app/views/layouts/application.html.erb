@@ -23,11 +23,11 @@
       <div class="dropdown">
         <button class="dropbtn">Products</button>
         <div class="dropdown-content">
-          <%= link_to "View Products", products_path %>
-          <%# <% @categories.each do |category| %>
-            <%# <%= link_to category.name, category_products_path(category.id) %>
-          <%# <% end %>
-          <%# <%= link_to "Add a Product", new_product_path %>
+          <%= link_to "View All Products", products_path %>
+            <% Category.all.each do |category| %>
+            <%= link_to category.name, category_products_path(category.id) %>
+          <% end %>
+          <%#<%= link_to "Add a Product", new_product_path %>
         </div>
       </div>
       

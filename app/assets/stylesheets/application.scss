@@ -121,12 +121,15 @@ nav {
   // margin-left: 32rem;
   // margin-bottom: 1px;
   // float:left;
-  text-align: center;
-  display: inline-block;
-  width: 90%;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 0.75em;
+  // text-align: center;
+  // display: inline-block;
+  // width: 90%;
+  // padding: 10px;
+  // margin-bottom: 20px;
+  // font-size: 0.75em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .index-product-container img {
@@ -137,6 +140,5 @@ nav {
 }
 
 .product-text {
-  display: block;
-  
+  padding: 10rem;
 }

@@ -10,10 +10,10 @@
 <section class="index-product-container">
   <% @products.each do |product| %>
     <%= image_tag product.photo_url, alt: "image of plant product" %> <br>
-    <article class="product-text">
+    <section class="product-text">
     <h3><%= product.name %></h3>
     $<h3><%= product.price %></h3>
-    </article>
+    </section>
   <% end %>
 </section>
 

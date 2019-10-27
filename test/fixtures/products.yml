@@ -1,15 +1,15 @@
-# aloe:
-#   name: Aloe plant
-#   price: 15.50
-#   quantity: 20
-#   description: Heals everything and anything
-#   photo_url: https://i.imgur.com/lrVWdlm.jpg
-#   status: true
+aloe:
+  name: Aloe plant
+  price: 15
+  quantity: 20
+  description: Heals everything and anything
+  photo_url: https://i.imgur.com/lrVWdlm.jpg
+  status: true
 
-# fern:
-#   name: Sword Fern
-#   price: 8.90
-#   quantity: 10
-#   description: A fern that looks like a sword
-#   photo_url: https://i.imgur.com/6oY23rH.jpg
-#   status: true
+fern:
+  name: Sword Fern
+  price: 8
+  quantity: 10
+  description: A fern that looks like a sword
+  photo_url: https://i.imgur.com/6oY23rH.jpg
+  status: true

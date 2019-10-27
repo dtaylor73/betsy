@@ -146,29 +146,30 @@ puts "#{order_item_failures.length} order items failed to save"
 
 # Review seeds
 
-# REVIEW_FILE = Rails.root.join("db", "review-seeds.csv")
-# puts "Loading raw review data from #{REVIEW_FILE}"
+REVIEW_FILE = Rails.root.join("db", "review-seeds.csv")
+puts "Loading raw review data from #{REVIEW_FILE}"
 
-# review_failures = []
-# CSV.foreach(REVIEW_FILE, :headers => true) do |row|
-#   review = Review.new
+review_failures = []
+CSV.foreach(REVIEW_FILE, :headers => true) do |row|
+  review = Review.new
 
-#   review.rating = row["rating"]
-#   review.text = row["text"]
-#   review.product_id = row["product_id"]
+  review.rating = row["rating"]
+  review.text = row["text"]
+  review.product_id = row["product_id"]
 
-#   successful = review.save
+  successful = review.save
 
-#   if !successful
-#     review_failures << review
-#     puts "Failed to save review: #{review.inspect}"
-#   else
-#     puts "Created review: #{review.inspect}"
-#   end
-# end
+  if !successful
+    review_failures << review
+    puts "Failed to save review: #{review.inspect}"
+    puts "*****ERROR MESSAGES: #{review.errors.messages}"
+  else
+    puts "Created review: #{review.inspect}"
+  end
+end
 
-# puts "Added #{Review.count} review records"
-# puts "#{review.length} reviews failed to save"
+puts "Added #{Review.count} review records"
+puts "#{review_failures.length} reviews failed to save"
 
 # Categories Products seeds
 # We will have to test whether the products are populating the categories through rails console just to double check..
