@@ -7,7 +7,11 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
 
+  resources :merchants do
+    resources :products, only: [:index]
+  end
+
   patch "/products/:id/active", to: "products#toggle_active", as: "toggle_active"
 
-  patch "/drivers/:id/inactive", to: "products#toggle_inactive", as: "toggle_inactive"
+  patch "/products/:id/inactive", to: "products#toggle_inactive", as: "toggle_inactive"
 end

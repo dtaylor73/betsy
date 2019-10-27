@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :destroy]
+  before_action :find_product, only: [:show, :edit, :update, :destroy, :toggle_active, :toggle_inactive]
 
   def index
     if params[:merchant_id]
@@ -64,7 +64,7 @@ class ProductsController < ApplicationController
       end
     else
       flash[:status] = :failure
-      flash[:result_text] = "Only logged in merchants can create products"
+      flash[:result_text] = "Only logged in merchants can update products"
       render :edit, status: :not_found
     end
   end
@@ -77,29 +77,60 @@ class ProductsController < ApplicationController
   #   return redirect_to products_path
   # end
 
-  def toggle_active
-    @product = Product.find_by(id: params[:id])
+  # def toggle_active
+  #   @product = Product.find_by(id: params[:id])
 
-    if @product.nil?
-      return redirect_to products_path
-    else
-      @product.status = true
-      @product.save
-      return redirect_to product_path(@product)
-    end
-  end
+  #   if @product.nil?
+  #     return redirect_to products_path
+  #   else
+  #     @product.status = true
+  #     @product.save
+  #     return redirect_to product_path(@product)
+  #   end
 
-  def toggle_inactive
-    @product = Product.find_by(id: params[:id])
+  #   if @logged_in_merchant
+  #     if @product.merchant_id == @logged_in_merchant.id && @product.status == false
+  #       @product.status = true
+  #       @product.save
+  #       return redirect_to merchant_path(@merchant)
+  #     else
+  #       flash[:status] = :failure
+  #       flash[:result_text] = "You may only change the status of your own products"
+  #     end
+  #   else
+  #     flash[:status] = :failure
+  #     flash[:result_text] = "You must be logged in to change the status of this product!"
+  #   end
+  #   redirect_to merchant_path(@merchant)
+  # end
+  # end
 
-    if @product.nil?
-      return redirect_to products_path
-    else
-      @product.status = false
-      @product.save
-      return redirect_to product_path(@product)
-    end
-  end
+  # def toggle_inactive
+  # @product = Product.find_by(id: params[:id])
+
+  # if @product.nil?
+  #   return redirect_to products_path
+  # else
+  #   @product.status = false
+  #   @product.save
+  #   return redirect_to product_path(@product)
+  # end
+
+  #   if @logged_in_merchant
+  #     if @product.merchant_id == @logged_in_merchant.id && @product.status == true
+  #       @product.status = false
+  #       @product.save
+  #       return redirect_to merchant_path(@merchant)
+  #     else
+  #       flash[:status] = :failure
+  #       flash[:result_text] = "You may only change the status of your own products"
+  #     end
+  #   else
+  #     flash[:status] = :failure
+  #     flash[:result_text] = "You must be logged in to change the status of this product!"
+  #   end
+  #   redirect_to merchant_path(@merchant)
+  # end
 
   private
 

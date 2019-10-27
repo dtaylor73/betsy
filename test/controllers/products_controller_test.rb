@@ -3,6 +3,7 @@ require "test_helper"
 describe ProductsController do
   let(:plant_one) { products(:aloe) }
   let(:category_one) { categories(:suc) }
+  let(:merchant_one) { merchants(:bob) }
   describe "logged in merchants" do
     describe "index" do
       it "can get the index path" do
@@ -31,15 +32,18 @@ describe ProductsController do
         must_respond_with :not_found
       end
 
-      # it "will get all the products for a specific merchant" do
-      # get merchant_products_path(plant_one)
-      # end
+      it "will get all the products for a specific merchant" do
+        plant_one.merchant_id = merchant_one.id
 
-      # it "should respond with a 404 if merchant does not exist" do
-      # get merchant_products_path(-1)
-      # must_respond_with :not_found
-      # end
+        get merchant_products_path(merchant_one.id)
 
+        must_respond_with :success
+      end
+
+      it "should respond with a 404 if merchant does not exist" do
+        get merchant_products_path(-1)
+        must_respond_with :not_found
+      end
     end
 
     describe "show" do
@@ -73,6 +77,28 @@ describe ProductsController do
         }.must_change "Product.count", 1
       end
 
+      it "renders bad_request and does not update the DB for bogus data" do
+        bad_product = { product: { name: nil, merchant: merchants(:bob), price: nil } }
+
+        expect {
+          post products_path, params: bad_product
+        }.wont_change "Product.count"
+
+        must_respond_with :bad_request
+      end
+    end
+  end
+
+  describe "guest users" do
+    describe "index" do
+      it "guest users can access all the products" do
+        get products_path
+
+        must_respond_with :success
+      end
+    end
+
+    describe "create" do
       it "does not create a product for a guest user" do
         new_product = { product: { name: "Cinnamon Fern", price: 8, quantity: 20, description: "Tastes like cinnamon", photo_url: "https://i.imgur.com/7tkoo6m.jpg", status: true } }
 

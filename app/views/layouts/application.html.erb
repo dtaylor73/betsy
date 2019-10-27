@@ -31,13 +31,16 @@
         </div>
       </div>
       
-      <%# <div class="dropdown">
+      <div class="dropdown">
         <button class="dropbtn">Merchants</button>
           <div class="dropdown-content">
-            <%= link_to "View Passengers", passengers_path %>
+            <%= link_to "View Merchants", merchants_path %>
+            <% Merchant.all.each do |merchant| %>
+            <%= link_to merchant.username, merchant_products_path(merchant.id) %>
+          <% end %>
             <%# <%= link_to "Add a Passenger", new_passenger_path %>
-          <%# </div> %>
-      <%# </div> %>
+          </div>
+      </div>
     </nav>
     <%= yield %>
     <footer class="page-footer font-small">
@@ -96,14 +99,9 @@
 
         </div>
 
-
-
         <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
-
           <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
-
         </div>
-
       </div>
     </div>
 
