@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   
   resources :merchants do
     resources :products, only: [:index, :new]
+    resources :orders, only: [:index]
   end
 
   get "/auth/github", as: "github_login"
