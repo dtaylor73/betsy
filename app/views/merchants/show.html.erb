@@ -8,6 +8,9 @@
     <%= link_to "Add Product", new_merchant_product_path(@merchant.id) %> | 
     <%= link_to "Add Category", new_category_path %>
     </p>
+    <p>
+    <%= link_to "Order Summary", merchant_orders_path(@merchant.id) %>
+    </p>
   <% end %>
 </section>
 
