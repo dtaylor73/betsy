@@ -2,7 +2,7 @@
 <table class='table'>
   <% @merchants.each do |merchant| %>
     <tr>
-      <td> <%= link_to merchant.username, merchant_path(merchant) %> </td>
+      <td> <%= link_to merchant.username, merchant_products_path(merchant) %> </td>
     </tr>
   <% end %>
 </table>

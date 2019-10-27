@@ -1,12 +1,38 @@
-<% if @merchant.id == session[:user_id] %>
-  <%= render(partial: "dashboard") %>
-<% else %>
-  <h1> <%= @merchant.username %>'s shop </h1>
-  <% @merchant.products.each do |product| %>
-    <figure class="figure">
-      <img src=<%= product.photo_url %> class="figure-img img-fluid rounded" alt=<%= product.name %>>
-      <figcaption class="figure-caption"> <%= product.name %> </figcaption>
-      <figcaption class="figure-caption"> $<%= product.price %> </figcaption>
-    </figure>
+<h1> USER SUMMARY: <%= @merchant.username %> </h1>
+<br>
+
+<section>
+  <p> Joined site: <%= @merchant.created_at %> </p>
+  <% if @merchant.id == session[:user_id] %>
+    <p> 
+    <%= link_to "Add Product", new_merchant_product_path(@merchant.id) %> | 
+    <%= link_to "Add Category", new_category_path %>
+    </p>
   <% end %>
-<% end %>
+</section>
+
+<section>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <% @merchant.products.each do |product| %>
+      <tr>
+        <td> <%= link_to product.name, product_path(product) %> </td>
+        <td> <%= product.quantity %> </td>
+        <td> <%= product.price %> </td>
+        <td> <%= product.status  %> </td>
+        <% if product.merchant_id == session[:user_id] %>
+          <td> <%= link_to "Edit", edit_product_path %> </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+</section>

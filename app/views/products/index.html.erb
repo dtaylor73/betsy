@@ -1,8 +1,8 @@
-<h2>Our Products</h2>
-
+<h1> <%= @title %> </h1>
 <% @products.each do |product| %>
-  <%= product.photo_url %> <br>
-  <%= product.name %>
+  <figure class="figure">
+    <img src=<%= product.photo_url %> class="figure-img img-fluid rounded" alt=<%= product.name %>>
+    <figcaption class="figure-caption"> <%= product.name %> </figcaption>
+    <figcaption class="figure-caption"> $<%= product.price %> </figcaption>
+  </figure>
 <% end %>
-
-<%# Loop through the products and display the photo and name %>
