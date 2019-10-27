@@ -4,14 +4,17 @@ describe MerchantsController do
   describe "auth_callback" do
     it "logs in an exisiting merchant and redirects to the root route"
       start_count = Merchant.count
-      perform_login
-      must_redirect_to root_path
+      merchant = merchants(:sponge)
 
-      expect(Merchant.count).must_equal start_count
+      perform_login(merchant)
+      # must_redirect_to root_path
+      session[:user_id].must_equal merchant.id
+
+      Merchant.count.must_equal start_count
     end
 
     it "creats an account for a new user and redirects to the root route" do
-      new_merchant = Merchant.new(name:"SpongeBob", email: "whatev@git.com")
+      new_merchant = Merchant.new(username:"Sandy", email: "whatev@git.com")
       
       OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(new_merchant))
       expect{ get auth_callback_path(:github) }.must_change "Merchant.count", 1
@@ -20,7 +23,7 @@ describe MerchantsController do
     end
   
     it "redirects to the login route if given invalid merchant data" do
-      new_merchant = Merchant.new(name:"PatrickStar", email: nil)
+      new_merchant = Merchant.new(name:"Sam", email: nil)
       
       OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(new_merchant))
       expect{ get auth_callback_path(:github) }.wont_change "Merchant.count"

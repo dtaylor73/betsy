@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
   def new
     if params[:merchant_id]
       merchant = Merchant.find_by(id: params[:merchant_id])
-      @products = merchant_id.products.new
+      @products = merchant.products.new
     else
       @product = Product.new
     end
