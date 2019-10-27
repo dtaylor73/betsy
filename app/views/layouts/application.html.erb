@@ -11,11 +11,22 @@
 
   <body>
 
-    <% if session[:user_id] %>
-      <%= link_to "Log out", logout_path, method: "delete" %>
-    <% else %>
-      <%= link_to "Login with Github", github_login_path %>
-    <% end %>
+    <ul class="nav app-header__user-nav-container">
+      <% if session[:user_id].nil? %>
+        <li class="nav-item app-header__nav_item">
+          <%= link_to "Login with GitHub", github_login_path, class: "btn btn-primary" %>
+        </li>
+      <% else %>
+        <li class="nav-item app-header__nav_item">
+          <%= link_to "Logged in as #{Merchant.find(session[:user_id]).username}", merchant_path(session[:user_id]), class: "btn btn-primary" %>
+        </li>
+        <li class="nav-item app-header__nav_item">
+          <%= link_to "Logout", logout_path, class: "btn btn-primary", method: :post %>
+        </li>
+      <% end %>
+    </ul>
+
+    <br>
 
     <%= yield %>
   </body>
