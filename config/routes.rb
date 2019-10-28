@@ -5,7 +5,13 @@ Rails.application.routes.draw do
   resources :orders
   resources :categories
   resources :products
-  resources :reviews, only: [:new, :create]
+  # resources :reviews, only: [:new, :create]
+
+   resources :products do
+    resources :reviews, only: [:new, :create]
+   
+   end
+
 
   resources :categories, only: [:new, :create] do
     resources :products, only: [:index]

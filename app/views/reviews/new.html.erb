@@ -1,3 +1,20 @@
 <h2>Add review</h2>
 
-<%= render partial: "form", locals: { action_name: "Create", verb_name: "create"} %>
+<%# <%= render partial: "reviews/form", locals: { action_name: "Create", verb_name: "create"} %> 
+<section>
+<%= form_with model: @review, class: 'create-review' do |f| %>
+
+
+  </div>
+   <%= f.label :rating %><br>
+  <%= f.text_field :rating%>
+  </div>
+
+  <div>
+   <%= f.label :text %><br>
+  <%= f.text_field :rating%>
+  </div>
+  <%= f.submit "#{action_name.capitalize} Review", class: "btn btn-primary" %>
+
+<% end %>
+</section>
