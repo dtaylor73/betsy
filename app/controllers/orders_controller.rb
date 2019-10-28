@@ -12,7 +12,7 @@ class OrdersController < ApplicationController
     end
 
     
-    if @order.nil?
+    if @ord
       head :not_found
       return
     end 
@@ -23,19 +23,31 @@ class OrdersController < ApplicationController
   end 
 
   def create
-    @order = Order.new(order_params)
-    
-    if @order.save
-      flash[:success] = "Order created successfully"
-      redirect_to root_path
+    @cart.add_product(product_params)
+    if @cart
+      @cart.save
+      flash[:success] = "This item was successfully added to your shopping cart."
+      render :show
       return
     else
-      @order.errors.each do |column, message|
-        flash.now[:failure] = "Could not create new order. #{column.capitalize} #{message}"
-      end
-      render :new 
+      flash[:failure] = "This item is out of stock"
+      render :show
       return 
-    end
+    end 
+
+    # @order = Order.new(order_params)
+    
+    # if @order.save
+    #   flash[:success] = "Order created successfully"
+    #   redirect_to root_path
+    #   return
+    # else
+    #   @order.errors.each do |column, message|
+    #     flash.now[:failure] = "Could not create new order. #{column.capitalize} #{message}"
+    #   end
+    #   render :new 
+    #   return 
+    # end
   end 
 
   private

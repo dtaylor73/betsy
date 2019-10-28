@@ -2,24 +2,23 @@ class Order < ApplicationRecord
   has_many :order_items
 
   
-  # def order_complete?(order)
-  #   if order.status == "pending"
+  def add_product(product_params)
 
+    current_product = params[:id]
+    # product id on the show page
 
-  # end 
+    order_item = OrderItem.new(quantity: params[:quantity], product_id: current_product, order_id: @cart, shipping_status: false)
+  
 
-  def total_earnings
-    driver_trips = self.trips
-    earnings = 0
+    if order_item.quantity > current_product.quantity
+      return false
+    else
+      current_product.quantity -= order_item.quantity
+      return true 
+    end 
     
-    driver_trips.each do |trips|
-      fee = (trips.cost - 1.65)
-      driver_earnings = fee * 0.8
-      earnings += driver_earnings
-    end
+  end 
 
-    return earnings.round(2)
-  end
+
 end
 
-# How do I create two views?
