@@ -5,12 +5,12 @@ Rails.application.routes.draw do
   resources :orders
   resources :categories
   resources :products
-  # resources :reviews, only: [:new, :create]
+  resources :reviews, only: [:new, :create]
 
-   resources :products do
-    resources :reviews, only: [:new, :create]
+  #  resources :products do
+  #   resources :reviews, only: [:new, :create]
    
-   end
+  #  end
 
 
   resources :categories, only: [:new, :create] do
