@@ -37,6 +37,9 @@
           <%= review.text %>
         </p>
       </article>
+      <article>
+        <%= link_to "Review this Product", new_product_review(@product.id), method: :post %>
+      </article>
       <% end %>
     <% end %>
   </div>
