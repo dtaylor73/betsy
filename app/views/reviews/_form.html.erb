@@ -1,4 +1,4 @@
-<%= form_with model: @review, @product_id, class: 'create-review' do |f| %>
+<%= form_with model: [@product_id, @review], class: 'create-review' do |f| %>
 
   <div class="form-group">
   <%= f.label :name %><br>

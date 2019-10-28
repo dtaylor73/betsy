@@ -15,7 +15,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params) 
     if @category.save 
       flash[:success] = "Category added successfully"
-      redirect_to  root_path #merchant_path(@merchant)
+      redirect_to  merchant_path(@merchant)
       return
     else 
       flash.now[:failure] = "Category failed to save"
@@ -24,14 +24,14 @@ class CategoriesController < ApplicationController
     end
   end
   
-  def show
-    # category_id = params[:id]
-    # @category = Category.find_by(id: category_id)
-    # if @category.nil?
-    #   head :not_found
-    #   return
-    # end     
-  end
+  # def show
+  #   # category_id = params[:id]
+  #   # @category = Category.find_by(id: category_id)
+  #   # if @category.nil?
+  #   #   head :not_found
+  #   #   return
+  #   # end     
+  # end
   
   # def edit
   #   @category = Category.find_by(id: params[:id])
