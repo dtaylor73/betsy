@@ -2,6 +2,7 @@ class CategoriesController < ApplicationController
 
   before_action :find_category, only: [:show]
   before_action :if_category_missing, only: [:show]
+  
   def index
     @categories = Category.all
   end
@@ -58,12 +59,6 @@ class CategoriesController < ApplicationController
   #   end
   # end
   
-  # def destroy
-  #   @category.destroy
-    
-  #   redirect_to categories_path
-  #   return
-  # end
 
   # def destroy
   #   category_id = params[:id]

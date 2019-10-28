@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
-#before
+
+ before_action :find_product
+
 def new
     @review = Review.new
   end
@@ -13,7 +15,7 @@ def new
       return
     else 
       flash.now[:failure] = "A problem occurred: Could not submit your Review" 
-      puts "failed work"
+      puts "failed review"
       render :new,  status: :bad_request
       return
     end
@@ -23,6 +25,9 @@ def new
 
   def review_params
     return params.require(:review).permit(:rating, :product_id, :text)
+  end 
+
+  def find_product
+    @product = Product.find_by_id(params[:product_id])
   end
-  
 end

@@ -1,0 +1,14 @@
+review1:
+  rating: 5
+  text: It healed my wounds
+  product_id: 2
+
+review2:
+  rating: 3
+  text: Not sure about this stand
+  product_id: 9
+
+review3:
+  rating: 5
+  text: So romantic
+  product_id: 4

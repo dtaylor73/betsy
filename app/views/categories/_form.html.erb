@@ -1,14 +1,16 @@
 <p>Add a new Category</p>
 
 <%= form_with model: @category, class: 'create-category' do |f| %>
+
   <div class="form-group">
   <%= f.label :category %><br>
   <%= f.select :from, ['Succulent', 'Flowers','Ferns', 'Easy Care', 'Accessories']%>
   </div>
+
   <div class="form-group">
   <%= f.label :name %><br>
   <%= f.text_field :name %>
-   </div>
-   <%= f.submit "#{action_name} Category", class: "Category-button" %>
+  </div>
 
+  <%= f.submit "#{action_name.capitalize} Category", class: "btn btn-primary" %>
 <% end %>
