@@ -5,6 +5,9 @@ describe ProductsController do
   let(:category_one) { categories(:suc) }
   let(:merchant_one) { merchants(:bob) }
   describe "logged in merchants" do
+    # before do
+    #   perform_login(merchant_one)
+    # end
     describe "index" do
       it "can get the index path" do
         get products_path

@@ -8,15 +8,17 @@
 
   <% end %>
 
-<section class="index-product-container">
-  <% @products.each do |product| %>
-    <%= image_tag product.photo_url, alt: "image of plant product" %> <br>
-    <section class="product-text">
-    <h3><%= product.name %></h3>
-    <h3><%= number_to_currency product.price %></h3>
-    </section>
-  <% end %>
-</section>
+  <section class="index-product-container">
+    <% @products.each do |product| %>
+      <%= link_to product_path(product) do %>
+        <%= image_tag product.photo_url, alt: "image of plant product" %>
+      <% end %>
+      <section class="product-text">
+        <h3><%= product.name %></h3>
+        <h3><%= number_to_currency product.price %></h3>
+      </section>
+    <% end %>
+  </section>
 </section>
 
 
