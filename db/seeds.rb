@@ -144,7 +144,7 @@ end
 puts "Added #{OrderItem.count} order item records"
 puts "#{order_item_failures.length} order items failed to save"
 
-# Review seeds
+# # Review seeds
 
 REVIEW_FILE = Rails.root.join("db", "review-seeds.csv")
 puts "Loading raw review data from #{REVIEW_FILE}"
