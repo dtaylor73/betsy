@@ -7,9 +7,9 @@ class ProductsController < ApplicationController
       if merchant == nil
         return head :not_found
       else
-        # merchant = Merchant.find_by(id: params[:merchant_id])
         @products = merchant.products
       end
+      @title = "Products / #{merchant.username}'s shop"
     elsif params[:category_id]
       category = Category.find_by(id: params[:category_id])
       if category == nil
@@ -17,14 +17,20 @@ class ProductsController < ApplicationController
       else
         @products = category.products
       end
+      @title = "Products / #{category.name}"
     else
       @products = Product.where(status: true)
+      @title = "Products / All"
     end
-    # @products = Product.where(status: true)
   end
 
   def new
-    @product = Product.new
+    if params[:merchant_id]
+      merchant = Merchant.find_by(id: params[:merchant_id])
+      @products = merchant.products.new
+    else
+      @product = Product.new
+    end
   end
 
   def create
