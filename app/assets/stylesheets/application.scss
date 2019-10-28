@@ -19,6 +19,8 @@
 
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
 
+// For all elements
+
 *, .product-title {
   font-family: "Amatic SC";
 }
@@ -27,12 +29,14 @@
   text-align: center;
 }
 
+// Navigation and first section with background image
+
 nav {
   border-bottom: 2px solid grey;
 }
 
 .background-section {
-  height: 30rem;
+  height: 45rem;
   background-image: url("https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
   background-repeat: no-repeat;
   background-position: center center;
@@ -42,7 +46,7 @@ nav {
 
 #header{
   position: absolute;
-  padding: 50px;
+  padding: 100px;
   z-index: 1000;
   top: 200px;
   left: 550px;
@@ -57,6 +61,8 @@ nav {
   display: grid;
   grid-template-columns: 75% auto auto auto;
 }
+
+// Navigation buttons
 
 .home-button {
   background-color: #4CAF50;
@@ -119,11 +125,13 @@ nav {
   display: block;
 }
 
-.index-product-container {
+.index-product-container, .product-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
+
+// Images sized to be the same
 
 img {
   width: 100%;
@@ -132,15 +140,31 @@ img {
   text-align: center;
 }
 
-.product-text {
-  padding: 10rem;
+.list-unstyled img {
+  width: 20%;
 }
+
+// Products section
 
 .product-container {
   display: flex;
   flex-wrap: wrap;
+  padding-top: 35px;
+  padding-bottom: 80px;
+}
+
+.product-name-image {
+  padding-right: 30px;
+}
+
+.product-text {
+  padding: 10rem;
 }
 
 .reviews li {
   list-style: none;
+}
+
+.prod-section {
+  text-align: center;
 }

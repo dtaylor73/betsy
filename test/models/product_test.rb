@@ -76,4 +76,11 @@ describe Product do
       _(prod.errors.messages).must_include :price
     end
   end
+
+  describe "custom methods" do
+    it "returns the top products" do
+      top_products = Product.top_products
+      expect(top_products).must_be_kind_of Array
+    end
+  end
 end

@@ -59,7 +59,7 @@
       </div>
     </section>
   <% end %>
-  
+
     <%= yield %>
     <footer class="page-footer font-small">
       <div class="container text-center text-md-left">
@@ -119,6 +119,31 @@
 
         <div class="col-md-2 col-lg-2 text-center mx-auto my-4">
           <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
+            <ul class="list-unstyled">
+              <li>
+                <p>
+                  <%= link_to root_path do %>
+                    <%= image_tag "https://i.imgur.com/5LuYDoZ.png", alt: "instagram icon" %>
+                  <% end %>
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <%= link_to root_path do %>
+                    <%= image_tag "https://i.imgur.com/JFP4VRh.png", alt: "facebook icon" %>
+                  <% end %>
+                </p>
+              </li>
+
+              <li>
+                <p>
+                  <%= link_to root_path do %>
+                    <%= image_tag "https://i.imgur.com/p0vHmrM.png", alt: "twitter icon" %>
+                  <% end %>
+                </p>
+              </li>
+            </ul>
         </div>
       </div>
     </div>
