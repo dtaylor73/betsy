@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_24_014759) do
+ActiveRecord::Schema.define(version: 2019_10_28_171551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2019_10_24_014759) do
     t.bigint "product_id"
     t.bigint "order_id"
     t.boolean "shipping_status"
+    t.bigint "merchants_id"
+    t.index ["merchants_id"], name: "index_order_items_on_merchants_id"
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
@@ -71,7 +73,7 @@ ActiveRecord::Schema.define(version: 2019_10_24_014759) do
     t.datetime "updated_at", null: false
     t.bigint "merchant_id"
     t.string "description"
-    t.string "photo_url"
+    t.string "photo_url", default: "https://i.imgur.com/CSul8N3.jpg"
     t.boolean "status"
     t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
@@ -85,4 +87,5 @@ ActiveRecord::Schema.define(version: 2019_10_24_014759) do
     t.index ["product_id"], name: "index_reviews_on_product_id"
   end
 
+  add_foreign_key "order_items", "merchants", column: "merchants_id"
 end

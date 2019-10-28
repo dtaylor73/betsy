@@ -1,0 +1,5 @@
+bob:
+  username: Bob
+  email: bob@plant.com
+  UID: 1
+  provider: github
