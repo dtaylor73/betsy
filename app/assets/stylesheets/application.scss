@@ -16,3 +16,155 @@
 @import "bootstrap";
 /* Import scss content */
 @import "**/*";
+
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+
+// For all elements
+
+*, .product-title {
+  font-family: "Amatic SC";
+}
+
+.product-title {
+  text-align: center;
+}
+
+// Navigation and first section with background image
+
+nav {
+  border-bottom: 2px solid grey;
+}
+
+.background-section {
+  height: 45rem;
+  background-image: url("https://images.pexels.com/photos/776656/pexels-photo-776656.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+#header{
+  position: absolute;
+  padding: 100px;
+  z-index: 1000;
+  top: 200px;
+  left: 550px;
+  background-color: whitesmoke;
+  opacity: 0.8;
+}
+
+.nav-bar {
+  background-color: lightgrey;
+  padding: 15px;
+  vertical-align: center;
+  display: grid;
+  grid-template-columns: 75% auto auto auto;
+}
+
+// Navigation buttons
+
+.home-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 20px;
+  border: none;
+}
+
+.home-button a {
+  text-decoration: none;
+  color: white;
+}
+
+.home-button a:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.title-section {
+  display: inline;
+  padding-right: 50px;
+}
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 20px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 5px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+  text-decoration: none;
+}
+
+.dropdown:hover .dropdown-content{
+  display: block;
+}
+
+.index-product-container, .product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+// Images sized to be the same
+
+img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  text-align: center;
+}
+
+.list-unstyled img {
+  width: 20%;
+}
+
+// Products section
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 35px;
+  padding-bottom: 80px;
+}
+
+.product-name-image {
+  padding-right: 30px;
+}
+
+.product-text {
+  padding: 10rem;
+}
+
+.reviews li {
+  list-style: none;
+}
+
+.prod-section {
+  text-align: center;
+}

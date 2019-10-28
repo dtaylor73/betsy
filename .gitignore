@@ -29,3 +29,5 @@ coverage
 
 # Ignore .env file 
 .env
+
+.DS_Store
