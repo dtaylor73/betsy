@@ -7,10 +7,10 @@ describe MerchantsController do
       merchant = merchants(:sponge)
 
       perform_login(merchant)
-      # must_redirect_to root_path
       session[:user_id].must_equal merchant.id
 
       Merchant.count.must_equal start_count
+      must_redirect_to root_path
     end
 
     it "creats an account for a new user and redirects to the root route" do

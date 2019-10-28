@@ -45,4 +45,3 @@ class ActiveSupport::TestCase
     return merchant
   end
 end
-
