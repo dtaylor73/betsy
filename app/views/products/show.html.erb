@@ -14,8 +14,10 @@
       <%= f.submit "Add to Cart", class: "btn btn-primary" %>
     <% end %>
 
-    Description: <%= @product.description%>
-    <%= @product.categories[0].name %>
+    Description: <%= @product.description%> <br>
+    <% @product.categories.each do |category| %>
+      Categories: <%= category.name %>
+    <% end %>
   </div>
 
   <div class="reviews">

@@ -28,9 +28,11 @@ class ProductsController < ApplicationController
   end
 
   def create
-    if session[:merchant_id]
+    if @login_merchant
+      # if session[:user_id]
       @product = Product.new(product_params)
-      @product.merchant_id = session[:merchant_id]
+      @product.merchant_id = @login_merchant
+      # @product.merchant_id = session[:user_id]
 
       if @product.save
         flash[:status] = :success
@@ -54,7 +56,8 @@ class ProductsController < ApplicationController
   end
 
   def update
-    if session[:merchant_id] && (session[:merchant_id] == @product.merchant_id)
+    if @login_merchant && @login_merchant == @product.merchant_id
+      # if session[:user_id] && (session[:user_id] == @product.merchant_id)
       if @product.update(product_params)
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully updated"
@@ -62,6 +65,7 @@ class ProductsController < ApplicationController
       else
         flash[:status] = :failure
         flash[:result_text] = "Invalid data. Please try again"
+        render :edit, status: :not_found
       end
     else
       flash[:status] = :failure

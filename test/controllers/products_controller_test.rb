@@ -90,6 +90,29 @@ describe ProductsController do
         must_respond_with :bad_request
       end
     end
+
+    describe "update" do
+      # Need to add Auth. Right now the result text is "Only logged in merchant can update"
+      it "succeeds for valid data and an extant product ID" do
+        updates = { product: { name: "Venus fly trap", price: 8 } }
+
+        expect {
+          patch product_path(plant_one), params: updates
+        }.wont_change "Product.count"
+
+        updated_product = Product.find_by(id: plant_one.id)
+        # expect(flash[:result_text]).must_equal "Yay!"
+        _(updated_product.name).must_equal "Venus fly trap"
+        must_respond_with :redirect
+        must_redirect_to product_path(plant_one.id)
+      end
+
+      it "returns not_found for an invalid product ID" do
+        invalid_id = -1
+        patch product_path(invalid_id), params: { product: { name: "Test name" } }
+        must_respond_with :not_found
+      end
+    end
   end
 
   describe "guest users" do
@@ -108,6 +131,22 @@ describe ProductsController do
         expect {
           post products_path, params: new_product
         }.wont_change "Product.count"
+      end
+    end
+
+    describe "update" do
+      it "will not allow a guest user to update a product" do
+        updates = { product: { name: "Venus fly trap", price: 8 } }
+
+        expect {
+          patch product_path(plant_one), params: updates
+        }.wont_change "Product.count"
+
+        updated_product = Product.find_by(id: plant_one.id)
+        updated_product.name.must_equal "Aloe plant"
+        expect(flash[:status]).must_equal :failure
+        expect(flash[:result_text]).must_equal "Only logged in merchants can update products"
+        must_respond_with :not_found
       end
     end
   end
