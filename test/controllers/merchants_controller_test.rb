@@ -2,7 +2,7 @@ require "test_helper"
 
 describe MerchantsController do
   describe "auth_callback" do
-    it "logs in an exisiting merchant and redirects to the root route"
+    it "logs in an exisiting merchant and redirects to the root route" do
       start_count = Merchant.count
       merchant = merchants(:sponge)
 
@@ -30,8 +30,5 @@ describe MerchantsController do
 
       # must_redirect_to root_path
     end
-  end
-
-  describe "current" do 
   end
 end
