@@ -44,4 +44,8 @@ class ActiveSupport::TestCase
   
     return merchant
   end
+
+  def Setup
+    OmniAuth.config.test_mode = true
+  end
 end

@@ -32,3 +32,31 @@ describe MerchantsController do
     end
   end
 end
+
+
+# describe "auth_callback" do
+#   it "logs in an exiting merchant and redirects to the root path" do
+#     start_count = Merchant.count
+#     merchant = merchants(:sponge)
+  
+#     perform_login(merchants)
+
+#     must_redirect_to root_path
+#     session[:user_id].must_equal  merchants.id
+#     Merchant.count.must_equal start_count
+#   end
+
+#   it "creates a new merchant and redirects to the root route" do
+#     start_count = Merchant.count
+#     merchants = Merchant.new(provider: "github", uid: 99999, name: "test_user", email: "test@user.com")
+
+#     perform_login(merchants)
+
+#     must_redirect_to root_path
+#     Merchant.count.must_equal start_count + 1
+#     session[:user_id].must_equal Merchant.last.id
+#   end
+
+#   it "redirects to the login route if given invalid user data" do
+#   end
+# end
