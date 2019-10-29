@@ -71,7 +71,6 @@ describe Merchant do
 
     it 'is included in the list of order_items' do
       order_item = order_items(:oi_1)
-      merchant = merchants(:star)
       _(order_item).must_respond_to :merchant
       order_item.merchant.must_be_kind_of Merchant
     end

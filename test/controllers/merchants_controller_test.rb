@@ -1,6 +1,8 @@
 require "test_helper"
 
 describe MerchantsController do
+  let(:merchant_one) { merchants(:sponge) }
+  
   describe "auth_callback" do
     it "logs in an exisiting merchant and redirects to the root route" do
       start_count = Merchant.count
@@ -34,10 +36,9 @@ describe MerchantsController do
     end
   end
 
-  let(:merchant_test) { merchants(:sponge) }
   describe "Logged_in Merchants" do
     before do
-      perform_login(merchant_test)
+      perform_login(merchant_one)
     end
 
     describe "index" do
