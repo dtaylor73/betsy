@@ -1,5 +1,11 @@
 <h2>WRITE YOUR REVIEW</h2>
 
+<section class="product-container">
+  <div class="product-name-image">
+    <%= image_tag @product.photo_url %>
+  </div>
+  </section>
+  
 <%# <%= render partial: "reviews/form", locals: { action_name: "Create", verb_name: "create"} %> 
 <section>
 <%= form_with model: @review,  url: product_reviews_path, class: 'create-review' do |f| %>
@@ -18,7 +24,6 @@
   <%= f.label :text, "Review"%><br>
   <%= f.text_field :text %>
    </div>
-
 
 
   <%= f.submit "Save", class: "btn btn-primary" %>

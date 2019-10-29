@@ -41,5 +41,7 @@
 
 
   <%= f.submit "#{action_name.capitalize} Product", class: "btn btn-primary" %>
+    <p><%= link_to "Review NOW", new_product_review_path(@product.id), class: 'button' %></p>
+
 <% end %>
 </section>

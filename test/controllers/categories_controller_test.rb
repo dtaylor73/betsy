@@ -8,8 +8,7 @@ describe CategoriesController do
       must_respond_with :success
     end
     
-    # it "gives back a 404 if there are no works available" do
-      it "returns with a success if there are no works available" do
+    it "returns with a success if there are no categories available" do
       get categories_path
       must_respond_with :success
     end
@@ -19,12 +18,11 @@ describe CategoriesController do
   describe 'create action' do
     
     it 'should not let the guest user to create a new category, no data' do
-      
       post categories_path, params: {
         category: {name: "new category" }
       }
-      expect(flash[:error]).must_equal "You must be logged in to create a new Category"
-      must_respond_with :redirect 
+      expect(flash[:error]).must_equal "You must be logged in to see this page"
+      must_respond_with :forbidden
     end
     
     it 'should not let the guest user to create a new category' do
@@ -34,10 +32,11 @@ describe CategoriesController do
       expect {
         post categories_path, params: category_hash
       }.must_differ 'Category.count', 0
-      must_redirect_to root_path
+       must_respond_with :forbidden
     end
     
     it 'should let the merchant to create a new  category' do
+      perform_login
       category_hash = {
         category: { name: "Yass"}
       }

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :orders
-  resources :categories
+ 
   
   resources :merchants do
     resources :products, only: [:index, :new]

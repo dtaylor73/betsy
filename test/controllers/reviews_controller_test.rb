@@ -4,6 +4,10 @@ describe ReviewsController do
   # before do 
   #   User.create!(username:"yasmin")
   # end
+  describe "create" do
+    let(:product) { product (:product1)}
+  end
+
   it 'creates a new review successfully with valid data' do
       review_hash = {
       review: {
@@ -14,7 +18,7 @@ describe ReviewsController do
       }
       expect {
         post reviews_path, params: review_hash
-      }.must_differ 'review.count', 1
+      }.must_differ 'Review.count', 1
 
       must_redirect_to root_path
   end
