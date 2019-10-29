@@ -1,5 +1,4 @@
 <section class="product-container">
-<%# <h2 class="product-title"> <%= @title %> </h2> %>
   <% if params[:category_id] %>
       <h2 class="product-title">List of Products: <%= Category.find(params[:category_id]).name %>
     <% elsif params[:merchant_id] %>
