@@ -5,7 +5,6 @@ SimpleCov.start "rails" do
   add_filter "/app/channels"
   add_filter "/app/jobs"
   add_filter "/app/mailers"
-  add_filter "/app/controllers/application_controller.rb"
 end
 
 ENV["RAILS_ENV"] ||= "test"
@@ -47,25 +46,4 @@ class ActiveSupport::TestCase
 
     return merchant
   end
-
-  # Add more helper methods to be used by all tests here...
-  # def mock_auth_hash(merchant)
-  #   return {
-  #     provider: merchant.provider,
-  #     uid: merchant.UID,
-  #     info: {
-  #       email: merchant.email,
-  #       username: merchant.username
-  #     }
-  #   }
-  # end
-
-  # def perform_login(merchant = nil)
-  #   merchant ||= Merchant.first
-
-  #   OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
-  #   get auth_callback_path(:github)
-
-  #   return merchant
-  # end
 end

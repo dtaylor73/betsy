@@ -38,7 +38,7 @@
         </p>
       </article>
       <article>
-        <%= link_to "Review this Product", new_product_review(@product.id), method: :post %>
+        <%= link_to "Review this Product", new_product_review_path(@product.id) %>
       </article>
       <% end %>
     <% end %>

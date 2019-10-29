@@ -1,9 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  def current_merchant
-    @current_merchant ||= Merchant.find(session[:user_id]) if session[:user_id]
-  end
+  before_action :find_merchant
+
+  # def current_merchant
+  #   @current_merchant ||= Merchant.find(session[:user_id]) if session[:user_id]
+  # end
 
   private
 

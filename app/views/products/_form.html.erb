@@ -38,8 +38,6 @@
     <%= f.select :category_id, Category.all.map{ |categ| [categ.name, categ.id] } %>
   </div>
 
-
-
   <%= f.submit "#{action_name.capitalize} Product", class: "btn btn-primary" %>
 <% end %>
 </section>

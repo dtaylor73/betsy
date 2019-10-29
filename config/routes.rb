@@ -25,5 +25,5 @@ Rails.application.routes.draw do
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
 
   patch "/products/:id/active", to: "products#toggle_active", as: "toggle_active"
-  patch "/drivers/:id/inactive", to: "products#toggle_inactive", as: "toggle_inactive"
+  patch "/products/:id/inactive", to: "products#toggle_inactive", as: "toggle_inactive"
 end

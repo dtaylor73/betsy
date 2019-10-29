@@ -33,7 +33,7 @@
         <td> <%= product.price %> </td>
         <td> <%= product.status  %> </td>
         <% if product.merchant_id == session[:user_id] %>
-          <td> <%= link_to "Edit", edit_product_path %> </td>
+          <td> <%= link_to "Edit", edit_product_path(product) %> </td>
         <% end %>
       </tr>
     <% end %>
