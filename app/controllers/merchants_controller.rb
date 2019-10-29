@@ -4,19 +4,11 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    @merchant = Merchant.find_by(id: params[:id])
-
-    if @merchant.nil?
-      head :not_found
-      return
-    end
-  end
-
-  def current
-    @merchant = Merchant.find(session[:user_id])
-    if @merchant.nil?
-      head :not_found
-      return
+    if find_merchant
+      @merchant = Merchant.find_by(id: params[:id])
+    else
+      flash[:error] = "You have no authorization access to this page"
+      return redirect_to root_path
     end
   end
 
