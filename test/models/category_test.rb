@@ -1,20 +1,21 @@
 require "test_helper"
-
+# require 'pry'
 describe Category do
   describe 'validations' do
     before do
       # Arrange
-      @Category = Category.new(name: 'Flowers')
+      @category = Category.new(name: 'yasms')
     end
     
     it 'is valid when all fields are present and unique' do
       # Act
-      result = @category.valid?
+   result = @category.valid?      
       # Assert
+      # binding.pry
       expect(result).must_equal true
     end
     
-    it 'is invalid without a name' do 
+    it 'is invalid without id' do 
       @category.name = nil
       
       expect(@category.valid?).must_equal false
@@ -22,9 +23,9 @@ describe Category do
     end
     
     it 'is invalid if the name is not unique' do
-      new_category = Category.new(name: 'test work')
+      new_category = Category.new(name: 'Flowers')
       new_category.save
-      @categoty.name = new_work.name
+      @category.name = new_category.name
       @category.save            
       expect(@category.valid?).must_equal false
       expect(@category.errors.messages).must_include :name
@@ -34,7 +35,7 @@ describe Category do
   describe 'relations' do 
     it 'has products' do
       category = Category.first
-      products = category.votes
+      products = category.products
       products.each do |product|
         expect(product).must_be_instance_of Product
       end

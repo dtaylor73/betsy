@@ -32,7 +32,7 @@ describe CategoriesController do
       expect {
         post categories_path, params: category_hash
       }.must_differ 'Category.count', 0
-       must_respond_with :forbidden
+       must_respond_with :forbidden 
     end
     
     it 'should let the merchant to create a new  category' do

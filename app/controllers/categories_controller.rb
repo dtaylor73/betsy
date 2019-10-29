@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
   
   def create
     @category = Category.new(category_params) 
-    if @category.save! 
+    if @category.save 
       flash[:success] = "Category added successfully"
       redirect_to  root_path #merchant_path(@merchant)
       return
