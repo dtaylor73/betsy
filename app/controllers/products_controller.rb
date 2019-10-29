@@ -25,12 +25,7 @@ class ProductsController < ApplicationController
   end
 
   def new
-    if params[:merchant_id]
-      merchant = Merchant.find_by(id: params[:merchant_id])
-      @products = merchant.products.new
-    else
-      @product = Product.new
-    end
+    @product = Product.new
   end
 
   def create
@@ -43,7 +38,7 @@ class ProductsController < ApplicationController
       if @product.save
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully created"
-        redirect_to products_path
+        redirect_to merchant_path(@login_merchant)
       else
         flash[:status] = :failure
         flash[:result_text] = "Invalid product info. Please try again."
