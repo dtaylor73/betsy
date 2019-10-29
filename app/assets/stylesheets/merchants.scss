@@ -2,11 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.merchant_list {
-  text-align: center;
-  padding: 10px;
-}
-
 .merchant_title {
   font-size: 2em;
+}
+
+.merchant_details {
+  text-align: center;
+  padding: 10px;
+  font-size: 1.5em;
 }
