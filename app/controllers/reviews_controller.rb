@@ -21,10 +21,12 @@ def new
     end
   end
 
+
   private
 
+
   def review_params
-    return params.require(:review).permit(:rating, :product_id, :text)
+    return params.require(:review).permit(:rating, :name, :text)
   end 
 
   def find_product

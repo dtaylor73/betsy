@@ -2,23 +2,28 @@
 
 <%# <%= render partial: "reviews/form", locals: { action_name: "Create", verb_name: "create"} %> 
 <section>
-<%= form_with model: @review, class: 'create-review' do |f| %>
+<%= form_with model: @review,  url: product_reviews_path, class: 'create-review' do |f| %>
 
   <div class="form-group">
-  <%= f.label :REVIEW %><br>
-  <%= f.text_field :REVIEW %>
+  <%= f.label :rating %><br>
+  <%= f.select :rating, [1, 2, 3, 4, 5]%>
+  </div>
+
+  <%# <div class="form-group">
+  <%= f.label :name %><br/>
+  <%# <%= f.text_field :name %> 
+  <%# </div> %> 
+
+  <div class="form-group">
+  <%= f.label :text, "Review"%><br>
+  <%= f.text_field :text %>
    </div>
 
-  <div class="form-group">
-  <%= f.label :NICKNAME %><br/>
-  <%= f.text_field :NICKNAME %>
-  </div>
 
-  <div class="form-group">
-   <%= f.label :LOCATION %><br>
-  <%= f.text_field :LOCATION%>
-  </div>
-  <%= f.submit "Save", class: "btn btn-primary" %> 
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+
+</div>
 
 <% end %>
 </section>

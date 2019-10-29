@@ -1,12 +1,15 @@
 require "test_helper"
 
 describe ReviewsController do
+  # before do 
+  #   User.create!(username:"yasmin")
+  # end
   it 'creates a new review successfully with valid data' do
       review_hash = {
-        review: {
-        name: "hdfhd",
-        rating: 4,
-        product: 'jgdkfjgk',
+      review: {
+        rating: 5,
+        product_id: 2,
+        text: 'It healed my wounds'
         }
       }
       expect {
@@ -15,4 +18,12 @@ describe ReviewsController do
 
       must_redirect_to root_path
   end
+  
+  # describe "current" do
+  #   it "sets flash[:error] and redirects when the merchant review their product " do
+  #     get current_merchant_path
+  #     expect(flash[:error]).must_equal "You must be logged in to see this page"
+  #     must_redirect_to reviews_path
+  #   end
+  # end
 end

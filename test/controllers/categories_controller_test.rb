@@ -39,7 +39,7 @@ describe CategoriesController do
     
     it 'should let the merchant to create a new  category' do
       category_hash = {
-        category: { name: "Flowers"}
+        category: { name: "Yass"}
       }
       expect {
         post categories_path, params: category_hash
@@ -47,7 +47,7 @@ describe CategoriesController do
       must_redirect_to root_path
     end
   end
-  
+end
   # describe 'update action' do
   #   before do
   #     @new_category = Category.create(name: "new category")
@@ -72,7 +72,7 @@ describe CategoriesController do
   
   
   
-end
+# end
 # describe CategoriesController do
 #   describe "index action" do
 #     it "gives back a successful response" do

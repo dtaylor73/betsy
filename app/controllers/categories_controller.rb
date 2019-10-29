@@ -15,7 +15,7 @@ class CategoriesController < ApplicationController
     @category = Category.new(category_params) 
     if @category.save 
       flash[:success] = "Category added successfully"
-      redirect_to  merchant_path(@merchant)
+      redirect_to  root_path #merchant_path(@merchant)
       return
     else 
       flash.now[:failure] = "Category failed to save"
@@ -99,5 +99,6 @@ class CategoriesController < ApplicationController
       redirect_to root_path
       return
     end
+  end
 end
 
