@@ -14,19 +14,21 @@ describe MerchantsController do
     end
 
     it "creats an account for a new user and redirects to the root route" do
+      start_count = Merchant.count
       new_merchant = Merchant.new(username:"Sandy", email: "whatev@git.com")
       
       OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(new_merchant))
-      expect{ get auth_callback_path(:github) }.must_change "Merchant.count", 1
+      expect{ get auth_callback_path(:github) }.must_change start_count, 1
 
       must_redirect_to root_path
     end
   
     it "redirects to the login route if given invalid merchant data" do
-      new_merchant = Merchant.new(name:"Sam", email: nil)
+      start_count = Merchant.count
+      new_merchant = Merchant.new(username:"Sam", email: nil)
       
       OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(new_merchant))
-      expect{ get auth_callback_path(:github) }.wont_change "Merchant.count"
+      expect{ get auth_callback_path(:github) }.wont_change start_count
 
       must_redirect_to root_path
     end
@@ -64,7 +66,7 @@ describe MerchantsController do
     describe "show" do
       it "will not allow a guest user to see any merchant's dashboard page" do
         get merchant_path(merchant_test.id)
-        must_respond_with :failure 
+        must_respond_with :bad_request
       end
     end
   end

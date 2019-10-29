@@ -61,37 +61,31 @@ describe Merchant do
       product.merchant.must_be_kind_of Merchant
     end
 
-  #   it 'has a list of order_items' do
-  #     merchant = merchants(:star)
-  #     _(merchant).must_respond_to :order_items
-  #     merchant.order_items.each do |order_item|
-  #       order_item.must_be_kind_of OrderItem
-  #     end
-  #   end
+    it 'has a list of order_items' do
+      merchant = merchants(:star)
+      _(merchant).must_respond_to :order_items
+      merchant.order_items.each do |order_item|
+        order_item.must_be_kind_of OrderItem
+      end
+    end
 
-  #   it 'is included in the list of order_items' do
-  #     order_item = order_items(:oi_1)
-  #     merchant = merchants(:star)
-  #     _(order_item).must_respond_to :merchant
-  #     order_item.merchant.must_be_kind_of Merchant
-  #   end
+    it 'is included in the list of order_items' do
+      order_item = order_items(:oi_1)
+      merchant = merchants(:star)
+      _(order_item).must_respond_to :merchant
+      order_item.merchant.must_be_kind_of Merchant
+    end
   end
 
-  # describe "custom method" do
-  #   it "create a new merchant from github auth_hash" do
-  #     test_auth_hash = {
-  #       uid: 123,
-  #       "info": {
-  #         "name": "sandy",
-  #         "email": "sandy@sam.com"
-  #       },
-  #       provider: "github"
-  #     }
+  describe "custom method" do
+    it "create a new merchant from github auth_hash" do
+      merchant_one = merchants(:sponge)
+      test_auth = mock_auth_hash(merchant_one)
 
-  #     merchant = Merchant.build_from_github(test_auth_hash)
-  #     merchant.save
+      merchant = Merchant.build_from_github(test_auth)
+      merchant.save
 
-  #     expect(merchant).must_be_kind_of Merchant
-  #   end
-  # end
+      expect(merchant).must_be_kind_of Merchant
+    end
+  end
 end

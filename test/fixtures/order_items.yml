@@ -3,7 +3,6 @@ oi_1:
   product_id: 1
   order_id: 1
   shipping_status: false
-  merchants_id: 1
 
 
 oi_2:
@@ -11,4 +10,3 @@ oi_2:
   product_id: 2
   order_id: 2
   shipping_status: true
-  merchants_id: 2

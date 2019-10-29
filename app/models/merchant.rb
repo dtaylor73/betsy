@@ -1,6 +1,6 @@
 class Merchant < ApplicationRecord
   has_many :products
-  has_many :orderitems
+  has_many :orderitems, through: :products
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
@@ -9,8 +9,8 @@ class Merchant < ApplicationRecord
     merchant = Merchant.new
     merchant.UID = auth_hash[:uid]
     merchant.provider = "github"
-    merchant.username = auth_hash["info"]["name"]
-    merchant.email = auth_hash["info"]["email"]
+    merchant.username = auth_hash[:info][:nickname]
+    merchant.email = auth_hash[:info][:email]
     
     return merchant
   end
