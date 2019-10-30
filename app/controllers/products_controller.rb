@@ -68,7 +68,7 @@ class ProductsController < ApplicationController
 
   def edit
     if @login_merchant && @login_merchant.id == @product.merchant_id
-      @product = Product.find_by(id: session[:user_id])
+      @product = Product.find_by(id: params[:id])
     else
       flash[:status] = :failure
       flash[:result_text] = "Only logged in merchants can edit their own products"
@@ -104,59 +104,39 @@ class ProductsController < ApplicationController
   # end
 
   def toggle_active
-    #   @product = Product.find_by(id: params[:id])
-
-    #   if @product.nil?
-    #     return redirect_to products_path
-    #   else
-    #     @product.status = true
-    #     @product.save
-    #     return redirect_to product_path(@product)
-    #   end
-
-    if @logged_in_merchant
-      if @product.merchant_id == @logged_in_merchant.id && @product.status == false
+    if @login_merchant
+      if @product.merchant_id == @login_merchant.id && @product.status == false
         @product.status = true
         @product.save
-        return redirect_to merchant_path(@merchant)
+        return redirect_to merchant_path(session[:user_id])
       else
         flash[:status] = :failure
         flash[:result_text] = "You may only change the status of your own products"
       end
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "You must be logged in to change the status of this product!"
+      # else
+      #   flash[:status] = :failure
+      #   flash[:result_text] = "You must be logged in to change the status of this product!"
     end
-    redirect_to merchant_path(@merchant)
+    redirect_to merchant_path(session[:user_id])
   end
 
   # end
 
   def toggle_inactive
-    # @product = Product.find_by(id: params[:id])
-
-    # if @product.nil?
-    #   return redirect_to products_path
-    # else
-    #   @product.status = false
-    #   @product.save
-    #   return redirect_to product_path(@product)
-    # end
-
-    if @logged_in_merchant
-      if @product.merchant_id == @logged_in_merchant.id && @product.status == true
+    if @login_merchant
+      if @product.merchant_id == @login_merchant.id && @product.status == true
         @product.status = false
         @product.save
-        return redirect_to merchant_path(@merchant)
+        return redirect_to merchant_path(session[:user_id])
       else
         flash[:status] = :failure
         flash[:result_text] = "You may only change the status of your own products"
       end
-    else
-      flash[:status] = :failure
-      flash[:result_text] = "You must be logged in to change the status of this product!"
+      # else
+      #   flash[:status] = :failure
+      #   flash[:result_text] = "You must be logged in to change the status of this product!"
     end
-    redirect_to merchant_path(@merchant)
+    redirect_to merchant_path(session[:user_id])
   end
 
   private

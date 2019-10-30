@@ -9,7 +9,8 @@
   <% end %>
 
   <section class="index-product-container">
-    <% @products.each do |product| %>
+
+    <% @products.where(status: true).each do |product| %>
       <%= link_to product_path(product) do %>
         <%= image_tag product.photo_url, alt: "image of plant product" %>
       <% end %>

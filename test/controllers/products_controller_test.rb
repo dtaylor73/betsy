@@ -2,8 +2,11 @@ require "test_helper"
 
 describe ProductsController do
   let(:plant_one) { products(:aloe) }
+  let(:plant_two) { products(:fern) }
+  let(:plant_three) { products(:bird) }
   let(:category_one) { categories(:suc) }
   let(:merchant_one) { merchants(:bob) }
+
   describe "logged in merchants" do
     before do
       perform_login(merchant_one)
@@ -160,6 +163,41 @@ describe ProductsController do
         must_respond_with :not_found
       end
     end
+
+    describe "toggle active" do
+      it "can activate a product" do
+        plant_two.update(status: false)
+        puts "****#{plant_two.status}"
+        patch toggle_active_path(plant_two.id)
+
+        expect((Product.find(plant_two.id)).status).must_equal true
+      end
+
+      it "cannot activate another merchant's product" do
+        plant_three.update(status: false)
+
+        patch toggle_active_path(plant_three.id)
+
+        expect((Product.find(plant_three.id)).status).must_equal false
+        expect(flash[:result_text]).must_equal "You may only change the status of your own products"
+      end
+    end
+
+    describe "toggle inactive" do
+      it "can retire a product" do
+        patch toggle_inactive_path(plant_one.id)
+
+        expect((Product.find(plant_one.id)).status).must_equal false
+        # expect(flash[:result_text]).must_equal "You must be logged in"
+      end
+
+      it "cannot retire another merchant's product" do
+        patch toggle_inactive_path(plant_three.id)
+
+        expect((Product.find(plant_three.id)).status).must_equal true
+        expect(flash[:result_text]).must_equal "You may only change the status of your own products"
+      end
+    end
   end
 
   describe "guest users" do
@@ -184,11 +222,11 @@ describe ProductsController do
     describe "create" do
       it "does not create a product for a guest user" do
         new_product = { product: { name: "Cinnamon Fern",
-                                 price: 8,
-                                 quantity: 20,
-                                 description: "Tastes like cinnamon",
-                                 photo_url: "https://i.imgur.com/7tkoo6m.jpg",
-                                 status: true } }
+                                   price: 8,
+                                   quantity: 20,
+                                   description: "Tastes like cinnamon",
+                                   photo_url: "https://i.imgur.com/7tkoo6m.jpg",
+                                   status: true } }
 
         expect {
           post products_path, params: new_product
@@ -215,7 +253,7 @@ describe ProductsController do
         }.wont_change "Product.count"
 
         updated_product = Product.find_by(id: plant_one.id)
-        updated_product.name.must_equal "Aloe plant"
+        _(updated_product.name).must_equal "Aloe plant"
         expect(flash[:status]).must_equal :failure
         expect(flash[:result_text]).must_equal "Only logged in merchants can update products"
         must_respond_with :not_found
