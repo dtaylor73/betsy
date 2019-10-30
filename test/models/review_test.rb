@@ -51,9 +51,11 @@ describe Review do
 
   describe 'relations' do
     it "has a product" do
-      review = reviews(:review1)
-      expect(review.product).must_equal products(:aloe)
+        review = Review.first
+        product = review.product
+        expect(product).must_be_instance_of Product
     end
   end
 end
+
 

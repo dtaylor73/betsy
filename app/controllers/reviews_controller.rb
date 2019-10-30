@@ -21,9 +21,7 @@ def new
     end
   end
 
-
   private
-
 
   def review_params
     return params.require(:review).permit(:rating, :name, :text)
