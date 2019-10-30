@@ -18,12 +18,4 @@ describe ReviewsController do
       must_redirect_to product_path(product.id)
     end
   end
-  
-  # describe "current" do
-  #   it "sets flash[:error] and redirects when the merchant review their product " do
-  #     get current_merchant_path
-  #     expect(flash[:error]).must_equal "You must be logged in to see this page"
-  #     must_redirect_to reviews_path
-  #   end
-  # end
 end
