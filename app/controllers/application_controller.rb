@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  # before_action :set_cart
+  before_action :set_cart
   protect_from_forgery with: :exception
  
   private
@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   # end 
 
   def set_cart
-    session[:shopping_cart] = {}
+    session[:shopping_cart] ||= {}
   end 
 
   def current_merchant

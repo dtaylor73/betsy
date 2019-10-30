@@ -5,27 +5,20 @@ class OrdersController < ApplicationController
   end 
 
   def show
-    # @order = Order.find_by(id: params[:id])
 
-    # if @order.status == "paid"
-    #   redirect_to confirmation_page_path
-    # end
-
-    # if @order
-    #   head :not_found
-    #   return
-    # end 
   end
 
   def create 
     @order = Order.new(order_params)
-
     if @order.save
 
+      # session can't be accessed in the model, which is why it is living here in the controller. 
       session[:shopping_cart].each do |product_ids, quantity|
+        OrderItem.create(quantity: quantity, product_id: product_ids, order_id: @order.id, placed_time: Time.now, status: "paid")
         product = Product.find_by(id: product_ids)
         product.quantity -= quantity 
       end 
+
 
       @order.status = "paid"
       session[:shopping_cart].clear
@@ -44,41 +37,29 @@ class OrdersController < ApplicationController
     @order = Order.new
   end 
 
-  # def update
- 
-  #   result = @cart.add_orderitem(product_params)
-  #   if result
-  #     @cart.save
-  #     flash[:success] = "This item was successfully added to your shopping cart."
-  #     render :show
-  #     return
-  #   else
-  #     flash[:failure] = "This item is out of stock"
-  #     render :show
-  #     return 
-  #   end 
-  # end 
-
   def shopping_cart
-    @product_ids = session[:shopping_cart].keys
+    if session[:shopping_cart] != {}
+      @product_ids = session[:shopping_cart].keys
+    elsif
+      @product_ids == nil
+    end 
+    
   end 
 
   def confirmation_page
+    @order = Order.find_by(id: params[:id])
+
     
   end
-
 
   # def remove_product_from_cart
   #   # product = Product.find_by(id: params[:id])
   #   session[:shopping_cart].delete(product.id)
   # end 
 
-
-
   private
 
   def order_params
     params.require(:order).permit(:name, :address, :email, :credit_card_num, :cvv, :zip, :expiration_date)
   end
-
 end

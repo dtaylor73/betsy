@@ -1,13 +1,41 @@
 <h1>Shopping Cart</h1>
 
-<%@product_ids.each do |ids|%>
-  <%product = Product.find_by(id: ids)%>
-  <%= image_tag product.photo_url, alt: "image of plant product" %>
-  <%= product.name%>
-  <%#= link_to "Delete Item", remove_product_from_cart_path(product.id), :method => :delete%>
+<%if @product_ids == nil%>
+  <%= "You currently have no products in your cart."%>
+<%else%>
+  <table class="table table-hover">
+    <%# <thead>
+      <tr>
+        <th scope="col"> </th>
+        <th scope="col"> </th>
+        <th scope="col"> </th>
+        <th scope="col"> </th>
+      </tr>
+    </thead> %>
+    <tbody>
+    <%@product_ids.each do |ids|%>
+      <%product = Product.find_by(id: ids)%>
+      <tr>
+        <td><%= image_tag product.photo_url, alt: "image of plant product"%></td>
+        <td>Name: <%= product.name%></td>
+        <td>Quantity: <%= product.quantity%></td>
+        <td>Change quantity: </td>
+        <td>Remove item from cart:</td>
+      
+      </tr>
+    <%end%>
+      <tr>
+        <td><button class="home-button"><%= link_to "Proceed to checkout", new_order_path%></button></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 <%end%>
 
-<button><%= link_to "Proceed to checkout", new_order_path%></button>
+
 
 
 

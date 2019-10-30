@@ -27,7 +27,6 @@
             <% Category.all.each do |category| %>
             <%= link_to category.name, category_products_path(category.id) %>
           <% end %>
-          <%#<%= link_to "Add a Product", new_product_path %>
         </div>
       </div>
       
@@ -38,10 +37,12 @@
             <% Merchant.all.each do |merchant| %>
             <%= link_to merchant.username, merchant_products_path(merchant.id) %>
           <% end %>
-        </div>
+          </div>
       </div>
-        <button class="cart-button"><%=link_to "Shopping Cart", shopping_cart_path%></button>
-      <div> 
+
+      <div>
+        <button class="home-button"><%=link_to "Shopping Cart", shopping_cart_path%></button>
+      </div> 
     </nav>
 
   <% if flash[:result_text] or flash[:messages] %>

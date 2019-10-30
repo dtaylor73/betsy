@@ -7,11 +7,6 @@ class Product < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :price , presence: true, numericality: {only_integer: true, greater_than: 0}
 
-  # def self.get_product_id
-  #   session[:product_ids] = []
-  #   session[:product_ids] << Product.find_by(id: params[:id])
-  # end 
-  # validates :price, presence: true, numericality: { only_float: true, greater_than: 0 }
 
   # def average_rating
   #   self.reviews[0].rating / self.reviews.count
@@ -22,12 +17,14 @@ class Product < ApplicationRecord
     return top_items[0..7]
   end
 
-  # def self.decrease_product_inventory
-  #   session[:shopping_cart].each do |product_ids, quantity|
-  #     product = Product.find_by(id: product_ids)
-  #     product.quantity -= quantity 
-  #   end 
-  # end 
+  def self.order_total_price(order)
+    total_price = 0
+    order.order_items.each do |order_item|
+      product = Product.find_by(id: order_item.product_id)
+      total_price += product.price
+    end
+    return total_price
+  end 
 end
 
 

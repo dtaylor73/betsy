@@ -81,7 +81,6 @@ class ProductsController < ApplicationController
       session[:shopping_cart][current_product.id] = product_order_quantity
       flash[:success] = "This item was successfully added to your shopping cart."
       render :show
-      # raise
       return
     elsif current_product.quantity < product_order_quantity
       flash[:failure] = "This item is out of stock"
