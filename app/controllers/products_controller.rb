@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :destroy, :toggle_active, :toggle_inactive]
+  before_action :find_product, only: [:show, :edit, :update, :destroy, :toggle_active, :toggle_inactive, :add_product_to_cart]
 
   def index
     if params[:merchant_id]
@@ -52,8 +52,7 @@ class ProductsController < ApplicationController
 
   def show; end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @login_merchant && @login_merchant == @product.merchant_id
@@ -73,6 +72,23 @@ class ProductsController < ApplicationController
       render :edit, status: :not_found
     end
   end
+
+  def add_product_to_cart
+    current_product = @product
+    product_order_quantity = params[:quantity].to_i
+
+    if current_product.quantity > product_order_quantity
+      session[:shopping_cart][current_product.id] = product_order_quantity
+      flash[:success] = "This item was successfully added to your shopping cart."
+      render :show
+      # raise
+      return
+    elsif current_product.quantity < product_order_quantity
+      flash[:failure] = "This item is out of stock"
+      render :show
+      return 
+    end 
+  end 
 
   # Do we need a destroy action if we're going to toggle the product's active status?
   # def destroy

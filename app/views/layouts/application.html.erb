@@ -38,9 +38,10 @@
             <% Merchant.all.each do |merchant| %>
             <%= link_to merchant.username, merchant_products_path(merchant.id) %>
           <% end %>
-            <%# <%= link_to "Add a Passenger", new_passenger_path %>
-          </div>
+        </div>
       </div>
+        <button class="cart-button"><%=link_to "Shopping Cart", shopping_cart_path%></button>
+      <div> 
     </nav>
 
   <% if flash[:result_text] or flash[:messages] %>
@@ -59,6 +60,13 @@
       </div>
     </section>
   <% end %>
+
+    <section class="flash">
+    <% flash.each do |name, message| %>
+      <div class="<%= name %>"><%= message %></div>
+    <% end %>
+  </section>
+
 
     <%= yield %>
     <footer class="page-footer font-small">

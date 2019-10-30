@@ -1,0 +1,16 @@
+<h1>Shopping Cart</h1>
+
+<%@product_ids.each do |ids|%>
+  <%product = Product.find_by(id: ids)%>
+  <%= image_tag product.photo_url, alt: "image of plant product" %>
+  <%= product.name%>
+<%end%>
+
+<%= link_to "Proceed to checkout", new_order_path%>
+
+
+
+
+
+
+
