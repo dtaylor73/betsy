@@ -35,7 +35,7 @@ class ActiveSupport::TestCase
       uid: merchant.UID,
       info: {
         email: merchant.email,
-        username: merchant.username
+        nickname: merchant.username
       }
     }
   end
@@ -44,12 +44,9 @@ class ActiveSupport::TestCase
     merchant ||= Merchant.first
 
     OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(mock_auth_hash(merchant))
+    
     get auth_callback_path(:github)
-  
     return merchant
-  end
-
-  def perform_logout
-    session[:user_id] = nil
+    
   end
 end

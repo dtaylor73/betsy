@@ -6,7 +6,7 @@
     <p> Joined site: <%= @merchant.created_at %> </p>
     <% if @merchant.id == session[:user_id] %>
       <p> 
-      <%= link_to "Add Product", new_product_path %> | 
+      <%= link_to "Add Product", new_merchant_product_path(@merchant.id) %> | 
       <%= link_to "Add Category", new_category_path %>
       </p>
       <p>

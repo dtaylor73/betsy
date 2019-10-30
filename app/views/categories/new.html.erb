@@ -1,0 +1,12 @@
+<p>Add a new Category</p>
+
+<%= form_with model: @category, class: 'create-category' do |f| %>
+
+
+  <div class="form-group">
+  <%= f.label :name %><br>
+  <%= f.text_field :name %>
+  </div>
+
+  <%= f.submit "Create Category", class: "btn btn-primary" %>
+<% end %>

@@ -12,18 +12,16 @@ describe MerchantsController do
       expect(session[:user_id]).must_equal merchant.id
       expect(Merchant.count).must_equal start_count
       must_redirect_to root_path
-      perform_logout
     end
 
     it "creats an account for a new user and redirects to the root route" do
       start_count = Merchant.count
-      merchant_two = Merchant.create(username: "sandy", email: "whatev@git.com", UID: 123, provider: "github")
+      merchant_two = Merchant.new(username: "test_user", email: "test_user@git.com", UID: 1234567890, provider: "github")
       perform_login(merchant_two)
 
-      expect(session[:user_id]).must_equal merchant_two.id
+      expect(session[:user_id]).must_equal Merchant.last.id
       expect(Merchant.count).must_equal start_count + 1
       must_redirect_to root_path
-      perform_logout
     end
 
     it "redirects to the login route if given invalid merchant data" do
