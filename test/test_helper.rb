@@ -48,4 +48,8 @@ class ActiveSupport::TestCase
   
     return merchant
   end
+
+  def perform_logout
+    session[:user_id] = nil
+  end
 end
