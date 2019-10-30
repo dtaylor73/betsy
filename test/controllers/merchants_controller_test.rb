@@ -50,7 +50,7 @@ describe MerchantsController do
 
     describe "show" do
       it "will show my merchant dashboard page" do
-        get merchant_path(merchant_test.id)
+        get merchant_path(merchant_one.id)
         must_respond_with :success
       end
     end
@@ -66,7 +66,7 @@ describe MerchantsController do
 
     describe "show" do
       it "will not allow a guest user to see any merchant's dashboard page" do
-        get merchant_path(merchant_test.id)
+        get merchant_path(merchant_one.id)
         must_respond_with :bad_request
       end
     end
