@@ -11,7 +11,6 @@ class OrdersController < ApplicationController
   def create 
     @order = Order.new(order_params)
     if @order.save
-
       # session can't be accessed in the model, which is why it is living here in the controller. 
       session[:shopping_cart].each do |product_ids, quantity|
         OrderItem.create(quantity: quantity, product_id: product_ids, order_id: @order.id, placed_time: Time.now, status: "paid")
@@ -48,12 +47,10 @@ class OrdersController < ApplicationController
 
   def confirmation_page
     @order = Order.find_by(id: params[:id])
-
-    
   end
 
   # def remove_product_from_cart
-  #   # product = Product.find_by(id: params[:id])
+  #   product = Product.find_by(id: product_id)
   #   session[:shopping_cart].delete(product.id)
   # end 
 
