@@ -21,8 +21,8 @@ describe CategoriesController do
       post categories_path, params: {
         category: {name: "new category" }
       }
-      expect(flash[:error]).must_equal "You must be logged in to see this page"
-      must_respond_with :forbidden
+      expect(flash[:result_text]).must_equal "You must be logged in to see this page"
+      must_redirect_to root_path
     end
     
     it 'should not let the guest user to create a new category' do
@@ -32,7 +32,8 @@ describe CategoriesController do
       expect {
         post categories_path, params: category_hash
       }.must_differ 'Category.count', 0
-       must_respond_with :forbidden 
+      expect(flash[:result_text]).must_equal "You must be logged in to see this page"
+       must_redirect_to root_path
     end
     
     it 'should let the merchant to create a new  category' do

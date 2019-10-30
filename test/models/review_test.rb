@@ -4,7 +4,7 @@ describe Review do
   describe 'validations' do
     before do
       # Arrange
-      @review = Review.new(rating: 3, text: text, product_id: 5)
+      @review = Review.new(rating: 3, text: "text", product: Product.first)
     end
 
     it 'is valid when all fields are present' do
@@ -12,29 +12,25 @@ describe Review do
       expect(result).must_equal true
     end
 
-    it 'is invalid without a name' do
-      @review.name = nil
+    it 'is invalid without a product' do
+      @review.product_id = nil
 
       expect(@review.valid?).must_equal false
-      expect(@review.errors.messages).must_include :name
+      expect(@review.errors.messages[:product]).must_include "must exist"
     end
 
-    it 'is invalid if the name is not unique' do
-      @review.name = reviews(:yasmins).name
+    # it 'is invalid if the product is not unique' do
+    #   @review.save
+    #   new_review = Review.new(rating: 3, text: "text", product: Product.first)
 
-      expect(@review.valid?).must_equal false
-      expect(@review.errors.messages).must_include :name
-    end
+    #   expect(new_review.valid?).must_equal false
+    #   expect(new_review.errors.messages[:product]).wont_include "must exist"
+    # end
 
     it 'is invalid without rating' do
-      @review.rating = 4
-
+      @review.rating = nil
       expect(@review.valid?).must_equal false
       expect(@review.errors.messages).must_include :rating
-
-      @review.rating = nil
-       expect(@review.valid?).must_equal false
-       expect(@review.errors.messages).must_include :rating
 
       @review.rating = "kjfdk"
 
@@ -46,14 +42,17 @@ describe Review do
     it 'is invalid when rating is not between 1 and 5' do
       @review.rating = 0
       expect(@review.valid?).must_equal false
-      expect(@review.errors.messages).must_include :rating[1..5]
+      expect(@review.errors.messages[:rating]).must_include "must be greater than 0"
+      @review.rating = 6
+      expect(@review.valid?).must_equal false
+      expect(@review.errors.messages[:rating]).must_include "must be less than or equal to 5"
     end
   end
 
   describe 'relations' do
     it "has a product" do
       review = reviews(:review1)
-      review.product.must_equal products[:aloe]
+      expect(review.product).must_equal products(:aloe)
     end
   end
 end

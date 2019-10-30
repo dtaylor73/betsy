@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
 
   before_action :find_category, only: [:show]
   before_action :if_category_missing, only: [:show]
-   before_action :require_login, only: [:create, :new]
+  before_action :require_login, only: [:create, :new]
   
   def index
     @categories = Category.all
