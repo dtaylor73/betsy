@@ -1,24 +1,29 @@
 class CategoriesController < ApplicationController
   before_action :find_category, only: [:show]
   before_action :if_category_missing, only: [:show]
-  before_action :require_login, only: [:create, :new]
-  
-  def index
-    @categories = Category.all
-  end
+  before_action :find_merchant, only: [:create, :new]
   
   def new
-    @category = Category.new
+    current_merchant
+    if @current_merchant.id.to_s == params[:id]
+      @category = Category.new
+    else
+      flash[:status] = :error
+      flash[:result_text] = "You have no authorization access to this page"
+      return redirect_to root_path
+    end
   end
   
   def create
     @category = Category.new(category_params) 
     if @category.save 
-      flash[:success] = "Category added successfully"
+      flash[:status] = :success
+      flash[:result_text] = "Category added successfully"
       redirect_to  root_path
       return
-    else 
-      flash.now[:failure] = "Category failed to save"
+    else
+      flash.now[:status] = :failure 
+      flash.now[:result_text] = "Category failed to save"
       render :new, status: :bad_request 
       return
     end
@@ -36,7 +41,8 @@ class CategoriesController < ApplicationController
 
   def if_category_missing
     if @category.nil?
-      flash[:error] = "category with id #{params[:id]} was not find"
+      flash[:status] = :error
+      flash[:result_text] = "category with id #{params[:id]} was not find"
       redirect_to root_path
       return
     end

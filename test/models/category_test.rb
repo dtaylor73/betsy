@@ -3,15 +3,11 @@ require "test_helper"
 describe Category do
   describe 'validations' do
     before do
-      # Arrange
       @category = Category.new(name: 'yasms')
     end
     
     it 'is valid when all fields are present and unique' do
-      # Act
    result = @category.valid?      
-      # Assert
-      # binding.pry
       expect(result).must_equal true
     end
     
