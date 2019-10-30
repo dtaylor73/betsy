@@ -1,8 +1,8 @@
 class ReviewsController < ApplicationController
-
- before_action :find_product
-
-def new
+  
+  before_action :find_product
+  
+  def new
     @review = Review.new
   end
   
@@ -11,7 +11,7 @@ def new
     @review.product = @product
     if @review.save 
       flash[:success] = "Review added successfully"
-     redirect_to  product_path(@product.id)
+      redirect_to  product_path(@product.id)
       return
     else 
       flash.now[:failure] = "A problem occurred: Could not submit your Review" 
@@ -20,13 +20,13 @@ def new
       return
     end
   end
-
+  
   private
-
+  
   def review_params
     return params.require(:review).permit(:rating, :name, :text)
   end 
-
+  
   def find_product
     @product = Product.find_by_id(params[:product_id])
   end
