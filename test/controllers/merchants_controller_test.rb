@@ -20,6 +20,11 @@ describe MerchantsController do
         get merchant_path(merchant_one.id)
         must_respond_with :success
       end
+
+      it "will not allow access to other merchant's dashboard page" do
+        get merchant_path(merchants(:star).id)
+        must_respond_with :redirect
+      end
     end
   end
 
@@ -34,7 +39,7 @@ describe MerchantsController do
     describe "show" do
       it "will not allow a guest user to see any merchant's dashboard page" do
         get merchant_path(merchant_one.id)
-        must_respond_with :bad_request
+        must_respond_with :redirect
       end
     end
   end

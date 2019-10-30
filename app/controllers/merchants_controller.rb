@@ -6,7 +6,8 @@ class MerchantsController < ApplicationController
   end
 
   def show
-    if current_merchant
+    current_merchant
+    if @current_merchant.id.to_s == params[:id]
       @merchant = Merchant.find_by(id: params[:id])
     else
       flash[:error] = "You have no authorization access to this page"
