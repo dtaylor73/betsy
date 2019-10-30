@@ -1,4 +1,6 @@
 class MerchantsController < ApplicationController
+  before_action :find_merchant, except: [:index, :create]
+
   def index
     @merchants = Merchant.all
   end

@@ -25,6 +25,10 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def setup
+    OmniAuth.config.test_mode = true
+  end
+  
   def mock_auth_hash(merchant)
     return {
       provider: merchant.provider,
@@ -43,9 +47,5 @@ class ActiveSupport::TestCase
     get auth_callback_path(:github)
   
     return merchant
-  end
-
-  def Setup
-    OmniAuth.config.test_mode = true
   end
 end
