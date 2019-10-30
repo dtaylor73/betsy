@@ -4,9 +4,11 @@
   <%product = Product.find_by(id: ids)%>
   <%= image_tag product.photo_url, alt: "image of plant product" %>
   <%= product.name%>
+  <%#= link_to "Delete Item", remove_product_from_cart_path(product.id), :method => :delete%>
 <%end%>
 
-<%= link_to "Proceed to checkout", new_order_path%>
+<button><%= link_to "Proceed to checkout", new_order_path%></button>
+
 
 
 

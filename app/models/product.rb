@@ -22,5 +22,12 @@ class Product < ApplicationRecord
     return top_items[0..7]
   end
 
-
+  # def self.decrease_product_inventory
+  #   session[:shopping_cart].each do |product_ids, quantity|
+  #     product = Product.find_by(id: product_ids)
+  #     product.quantity -= quantity 
+  #   end 
+  # end 
 end
+
+
