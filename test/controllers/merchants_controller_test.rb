@@ -50,17 +50,20 @@ describe MerchantsController do
       merchant = merchants(:sponge)
       perform_login(merchant)
 
-      expect(session[:merchant_id]).must_equal merchant.id
+      expect(session[:user_id]).must_equal merchant.id
       expect(Merchant.count).must_equal start_count
       must_redirect_to root_path
     end
 
     it "creats an account for a new user and redirects to the root route" do
       start_count = Merchant.count
-      merchant = Merchant.new(username:"Sandy", email: "whatev@git.com", UID: 123, provider: "github")
+      merchant = Merchant.create(username: "sandy", email: "whatev@git.com", UID: 123, provider: "github")
       perform_login(merchant)
 
-      expect(session[:merchant_id]).must_equal merchant.id
+      # require 'pry'
+      # binding.pry
+
+      expect(session[:user_id]).must_equal merchant.id
       expect(Merchant.count).must_equal start_count + 1
       must_redirect_to root_path
     end
