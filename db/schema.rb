@@ -84,5 +84,4 @@ ActiveRecord::Schema.define(version: 2019_10_30_060340) do
     t.string "text"
     t.index ["product_id"], name: "index_reviews_on_product_id"
   end
-
 end
