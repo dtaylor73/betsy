@@ -1,16 +1,15 @@
 require "test_helper"
 
 describe OrderItem do
+  before do
+    @order_item = OrderItem.new(
+      quantity: 3,
+      product: products(:aloe),
+      order: orders(:o_1),
+    )
+  end
 
   describe "validations" do
-    before do
-      @order_item = OrderItem.new(
-        quantity: 3,
-        product: products(:aloe),
-        order: orders(:o_1),
-      )
-    end
-
     it 'is valid when all fields are present' do
       result = @order_item.valid?
       expect(result).must_equal true
@@ -60,6 +59,32 @@ describe OrderItem do
       @order_item.quantity = 21
       result = @order_item.valid?
       expect(result).must_equal false
+    end
+  end
+
+  describe "relationships" do
+    it "belongs to a product" do
+      @order_item.save
+      expect(@order_item.product).must_equal products(:aloe)
+    end
+
+    it "belongs to an order" do
+      @order_item.save
+      expect(@order_item.order).must_equal orders(:o_1)
+    end
+
+    it "has a merchant through product" do
+      @order_item.save
+      expect(@order_item.merchant).must_equal products(:aloe).merchant
+    end
+  end
+
+  describe "custom methods" do
+    describe "subtotal" do
+      it "can the subtotal for each oder_item" do
+        result = order_items(:oi_2).subtotal
+        expect(result).must_be_close_to 16
+      end
     end
   end
 end
