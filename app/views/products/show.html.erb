@@ -21,7 +21,8 @@
     <% end %>
   </div>
 
-  <div class="reviews">
+  <div class="reviews-container">
+    <div class="reviews">
     <h2>Reviews</h2>
     <% if @product.reviews.empty? %>
       <p>No reviews yet!</p>
@@ -41,10 +42,15 @@
       <article>
         <%= link_to "Review this Product", new_product_review_path(@product.id) %>
       </article>
+      </div>
       <% end %>
     <% end %>
+    </div>
   </div>
   <% else %>
-    <h3>This product is not available!</h3>
+    <div class="unavailable-product">
+      <h3>Opps! This product is not available!</h3>
+      <%= image_tag("https://i.imgur.com/xoId4Cx.jpg") %>
+    </div>
   <% end %>
 </section>

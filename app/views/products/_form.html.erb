@@ -38,9 +38,9 @@
     <%# <%= f.select :category_ids, Category.all.map{ |categ| [categ.name, categ.id] } %>
 
     <%= f.label :categories%>
-    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+    <strong><%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %></strong>
   </div>
 
-  <%= f.submit "#{action_name.capitalize} Product", class: "btn btn-primary" %>
+  <%= f.submit "#{action_name.capitalize} Product", class: "btn btn-success" %>
 <% end %>
 </section>
