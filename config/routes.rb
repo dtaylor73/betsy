@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :products
   resources :categories
   resources :orders
+  resources :order_items, only: [:create]
   
   resources :merchants do
     resources :products, only: [:index, :new]
