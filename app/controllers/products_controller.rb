@@ -41,10 +41,8 @@ class ProductsController < ApplicationController
 
   def create
     if @login_merchant
-      # if session[:user_id]
       @product = Product.new(product_params)
-      # binding.pry
-      # @product.merchant_id = @login_merchant
+
       @product.merchant_id = session[:user_id]
       if @product.save
         flash[:status] = :success
@@ -60,8 +58,6 @@ class ProductsController < ApplicationController
       flash[:result_text] = "Only logged in merchants can create products"
       render :new, status: :bad_request
     end
-    # binding.pry
-    # redirect_back fallback_location: products_path
   end
 
   def show; end
@@ -78,15 +74,10 @@ class ProductsController < ApplicationController
 
   def update
     if @login_merchant && session[:user_id] == @product.merchant_id
-      # if session[:user_id] && (session[:user_id] == @product.merchant_id)
       if @product.update(product_params)
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully updated"
         redirect_to product_path(@product)
-        # else
-        #   flash.now[:status] = :failure
-        #   flash.now[:result_text] = "Invalid data. Please try again"
-        #   render :edit, status: :not_found
       end
     else
       flash[:status] = :failure
@@ -94,14 +85,6 @@ class ProductsController < ApplicationController
       render :edit, status: :not_found
     end
   end
-
-  # Do we need a destroy action if we're going to toggle the product's active status?
-  # def destroy
-  #   @product.destroy
-  #   flash[:status] = :success
-  #   flash[:result_text] = "Product has been sucessfully destroyed"
-  #   return redirect_to products_path
-  # end
 
   def toggle_active
     if @login_merchant
@@ -113,9 +96,6 @@ class ProductsController < ApplicationController
         flash[:status] = :failure
         flash[:result_text] = "You may only change the status of your own products"
       end
-      # else
-      #   flash[:status] = :failure
-      #   flash[:result_text] = "You must be logged in to change the status of this product!"
     end
     redirect_to merchant_path(session[:user_id])
   end
@@ -132,9 +112,6 @@ class ProductsController < ApplicationController
         flash[:status] = :failure
         flash[:result_text] = "You may only change the status of your own products"
       end
-      # else
-      #   flash[:status] = :failure
-      #   flash[:result_text] = "You must be logged in to change the status of this product!"
     end
     redirect_to merchant_path(session[:user_id])
   end
@@ -142,7 +119,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    # Need to add additional fields for Product such as photo_url, status, etc.
     params.require(:product).permit(:name, :price, :quantity, :merchant_id, :description, :photo_url, :status, category_ids: [])
   end
 
