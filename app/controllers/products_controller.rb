@@ -1,5 +1,3 @@
-require "pry"
-
 class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy, :toggle_active, :toggle_inactive]
 
