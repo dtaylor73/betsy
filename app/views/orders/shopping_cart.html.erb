@@ -19,7 +19,7 @@
         <td><%= image_tag product.photo_url, alt: "image of plant product"%></td>
         <td>Name: <%= product.name%></td>
         <td>Quantity: <%= product.quantity%></td>
-        <td>Change quantity: </td> 
+        <td>Change Quantity:</td> 
         <td><%= link_to "Remove item from cart", remove_product_from_cart_path(product.id)%></td>
       
       </tr>

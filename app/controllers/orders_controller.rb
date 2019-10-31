@@ -42,16 +42,23 @@ class OrdersController < ApplicationController
     elsif
       @product_ids == nil
     end 
-    
   end 
 
   def confirmation_page
     @order = Order.find_by(id: params[:id])
   end
 
-  # def remove_product_from_cart
-  #   product = Product.find_by(id: product_id)
-  #   session[:shopping_cart].delete(product.id)
+  def remove_product_from_cart
+    product = Product.find_by(id: params[:id])
+    session[:shopping_cart].delete(product.id.to_s)
+    session[:shopping_cart].keys
+    session[:shopping_cart].values
+    render :shopping_cart
+    return
+  end 
+
+  # def change_quantity_of_cart
+    
   # end 
 
   private

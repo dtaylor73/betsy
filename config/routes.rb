@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   
   get "/orders/shopping_cart", to: "orders#shopping_cart", as: "shopping_cart"
 
-  # get "/orders/remove_product_from_cart", to: "orders#remove_product_from_cart", as: "remove_product_from_cart"
+  get "/orders/remove_product_from_cart/:id", to: "orders#remove_product_from_cart", as: "remove_product_from_cart"
 
-  # delete "/orders/remove_product_from_cart", to: "orders#remove_product_from_cart", as: "remove_product_from_cart"
+  # get "/orders/change_quantity_of_cart/:id", to: "orders#change_quantity_of_cart", as: "change_quantity_of_cart"
 
   resources :orders
 
@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   resources :merchants do
     resources :products, only: [:index]
   end
-
 
   patch "/products/:id/active", to: "products#toggle_active", as: "toggle_active"
 
