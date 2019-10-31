@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  # before_action :find_merchant
 
   before_action :find_merchant
 
@@ -10,8 +11,10 @@ class ApplicationController < ActionController::Base
   private
 
   def find_merchant
-    if session[:user_id]
-      @login_merchant = Merchant.find_by(id: session[:user_id])
+    if current_merchant.nil?
+      flash[:status] = :error
+      flash[:result_text] = "You must log in to access this page"
+      return redirect_to root_path
     end
   end
 end
