@@ -4,7 +4,7 @@ class OrderItem < ApplicationRecord
   has_one :merchant, through: :product
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than: 0}
-  validate :shipping_status, inclusion: {
+  validates :shipping_status, inclusion: {
     in: [true, false],
     message: "shipping status must be boolean value: true or false"
   }
