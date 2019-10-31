@@ -15,12 +15,23 @@ Rails.application.routes.draw do
 
   resources :categories, only: [:new, :create] do
     resources :products, only: [:index]
+  resources :categories
+
+  
+  resources :merchants do
+    resources :products, only: [:index, :new]
+    resources :orders, only: [:index]
   end
 
-  resources :merchants do
+  resources :categories, only: [:new, :create] do
     resources :products, only: [:index]
   end
 
+  get "/auth/github", as: "github_login"
+  get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
+  post "/logout", to: "merchants#destroy", as: "logout"
+  get "/merchants/current", to: "merchants#current", as: "current_merchant"
+  
   patch "/products/:id/active", to: "products#toggle_active", as: "toggle_active"
 
   root 'homepages#index'

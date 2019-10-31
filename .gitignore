@@ -27,6 +27,9 @@
 /config/master.key
 coverage
 
+# Ignore .env file 
+.env
+
 .DS_Store
 
 /.env
