@@ -3,7 +3,6 @@ sponge:
   email: spongebob@gmail.com
   UID: 678
   provider: github
-
 star:
   username: Patrick Star
   email: patrickstar@gmail.com

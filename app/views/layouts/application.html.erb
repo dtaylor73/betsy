@@ -11,6 +11,7 @@
   </head>
 
   <body>
+
     <nav class="nav-bar">
       <div>
         <button class="home-button"><%= link_to "Home", root_path %></button>
@@ -38,23 +39,15 @@
           </div>
       </div>
 
-      <div class="title-div">
-        <h1 class="title-section">Planterina</h1>
+      <div>  
+        <% if session[:user_id].nil? %>
+            <button class="home-button"><%= link_to "Login with GitHub", github_login_path %></button>
+        <% else %>
+            <button class="home-button"><%= link_to "MY ACCOUNT", merchant_path(session[:user_id]) %></button>
+            <button class="home-button"><%= link_to "Logout", logout_path, method: :post %></button>
+        <% end %>
       </div>
 
-      
-      <% if session[:user_id].nil? %>
-        <div class="login_out">
-          <%= link_to "Login with GitHub", github_login_path, class: "btn btn-primary" %>
-        </div>
-      <% else %>
-        <div class="login_out">
-          <%= link_to "MY ACCOUNT", merchant_path(session[:user_id]), class: "btn btn-primary" %>
-        </div>
-        <div class="login_out">
-          <%= link_to "Logout", logout_path, class: "btn btn-primary", method: :post %>
-        </div>
-      <% end %>
     </nav>
 
   <% if flash[:result_text] or flash[:messages] %>

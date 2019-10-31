@@ -1,4 +1,5 @@
 <section class="product-container">
+  <% if @product.status %>
   <div class="product-name-image">
     <%= image_tag @product.photo_url %>
   </div>
@@ -18,16 +19,19 @@
     <% @product.categories.each do |category| %>
       Categories: <%= category.name %>
     <% end %>
+    <br>
+    <br>
+    <%= link_to "Review this Product", new_product_review_path(@product.id), class: "btn btn-primary" %>
   </div>
 
-  <div class="reviews">
+  <section class="reviews-container">
     <h2>Reviews</h2>
     <% if @product.reviews.empty? %>
       <p>No reviews yet!</p>
     <% else %>
     <ul>
       <% @product.reviews.each do |review| %>
-      <article>
+        <article class="list-unstyled">
         <li>
           <% review.rating.times do%>
           <%= "🌱"  %>
@@ -36,8 +40,15 @@
         <p>
           <%= review.text %>
         </p>
-      </article>
+      </div>
       <% end %>
     <% end %>
-  </div>
+    </section>
+  </article>
+  <% else %>
+    <div class="unavailable-product">
+      <h3>Opps! This product is not available!</h3>
+      <%= image_tag("https://i.imgur.com/xoId4Cx.jpg") %>
+    </div>
+  <% end %>
 </section>

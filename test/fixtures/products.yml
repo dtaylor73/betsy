@@ -15,3 +15,12 @@ fern:
   photo_url: https://i.imgur.com/6oY23rH.jpg
   status: true
   merchant: bob
+
+bird:
+  name: Bird of Paradise
+  price: 18
+  quantity: 20
+  description: Tropical flower
+  photo_url: https://i.imgur.com/fdrt1ZW.jpg
+  status: true
+  merchant: sponge

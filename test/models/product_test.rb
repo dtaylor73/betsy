@@ -81,6 +81,7 @@ describe Product do
     it "returns the top products" do
       top_products = Product.top_products
       expect(top_products).must_be_kind_of Array
+      _(top_products.length).must_equal 3
     end
   end
 end

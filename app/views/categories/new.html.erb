@@ -1,12 +1,4 @@
-<p>Add a new Category</p>
+<section>
+<%= render partial: "form", locals: { action_name: "Create", verb_name: "create"} %>
+</section>
 
-<%= form_with model: @category, class: 'create-category' do |f| %>
-
-
-  <div class="form-group">
-  <%= f.label :name %><br>
-  <%= f.text_field :name %>
-  </div>
-
-  <%= f.submit "Create Category", class: "btn btn-primary" %>
-<% end %>

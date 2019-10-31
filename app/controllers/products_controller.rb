@@ -9,7 +9,6 @@ class ProductsController < ApplicationController
       else
         @products = merchant.products
       end
-      @title = "Products / #{merchant.username}'s shop"
     elsif params[:category_id]
       category = Category.find_by(id: params[:category_id])
       if category == nil
@@ -17,24 +16,32 @@ class ProductsController < ApplicationController
       else
         @products = category.products
       end
-      @title = "Products / #{category.name}"
     else
       @products = Product.where(status: true)
-      @title = "Products / All"
     end
   end
 
   def new
-    @product = Product.new
+    if @login_merchant.nil?
+      flash[:status] = :failure
+      flash[:result_text] = "Only logged in merchants can create products"
+      redirect_to root_path
+    else
+      @product = @login_merchant.products.new
+    end
+    if @login_merchant
+      merchant = Merchant.find_by(id: params[:merchant_id])
+      @products = Product.new
+    else
+      @product = Product.new
+    end
   end
 
   def create
     if @login_merchant
-      # if session[:user_id]
       @product = Product.new(product_params)
-      @product.merchant_id = @login_merchant
-      # @product.merchant_id = session[:user_id]
 
+      @product.merchant_id = session[:user_id]
       if @product.save
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully created"
@@ -54,19 +61,21 @@ class ProductsController < ApplicationController
   def show; end
 
   def edit
+    if @login_merchant && @login_merchant.id == @product.merchant_id
+      @product = Product.find_by(id: params[:id])
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "Only logged in merchants can edit their own products"
+      redirect_to root_path
+    end
   end
 
   def update
-    if @login_merchant && @login_merchant == @product.merchant_id
-      # if session[:user_id] && (session[:user_id] == @product.merchant_id)
+    if @login_merchant && session[:user_id] == @product.merchant_id
       if @product.update(product_params)
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully updated"
         redirect_to product_path(@product)
-      else
-        flash[:status] = :failure
-        flash[:result_text] = "Invalid data. Please try again"
-        render :edit, status: :not_found
       end
     else
       flash[:status] = :failure
@@ -75,73 +84,39 @@ class ProductsController < ApplicationController
     end
   end
 
-  # Do we need a destroy action if we're going to toggle the product's active status?
-  # def destroy
-  #   @product.destroy
-  #   flash[:status] = :success
-  #   flash[:result_text] = "Product has been sucessfully destroyed"
-  #   return redirect_to products_path
+  def toggle_active
+    if @login_merchant
+      if @product.merchant_id == @login_merchant.id && @product.status == false
+        @product.status = true
+        @product.save
+        return redirect_to merchant_path(session[:user_id])
+      else
+        flash[:status] = :failure
+        flash[:result_text] = "You may only change the status of your own products"
+      end
+    end
+    redirect_to merchant_path(session[:user_id])
+  end
+
   # end
 
-  # def toggle_active
-  #   @product = Product.find_by(id: params[:id])
-
-  #   if @product.nil?
-  #     return redirect_to products_path
-  #   else
-  #     @product.status = true
-  #     @product.save
-  #     return redirect_to product_path(@product)
-  #   end
-
-  #   if @logged_in_merchant
-  #     if @product.merchant_id == @logged_in_merchant.id && @product.status == false
-  #       @product.status = true
-  #       @product.save
-  #       return redirect_to merchant_path(@merchant)
-  #     else
-  #       flash[:status] = :failure
-  #       flash[:result_text] = "You may only change the status of your own products"
-  #     end
-  #   else
-  #     flash[:status] = :failure
-  #     flash[:result_text] = "You must be logged in to change the status of this product!"
-  #   end
-  #   redirect_to merchant_path(@merchant)
-  # end
-  # end
-
-  # def toggle_inactive
-  # @product = Product.find_by(id: params[:id])
-
-  # if @product.nil?
-  #   return redirect_to products_path
-  # else
-  #   @product.status = false
-  #   @product.save
-  #   return redirect_to product_path(@product)
-  # end
-
-  #   if @logged_in_merchant
-  #     if @product.merchant_id == @logged_in_merchant.id && @product.status == true
-  #       @product.status = false
-  #       @product.save
-  #       return redirect_to merchant_path(@merchant)
-  #     else
-  #       flash[:status] = :failure
-  #       flash[:result_text] = "You may only change the status of your own products"
-  #     end
-  #   else
-  #     flash[:status] = :failure
-  #     flash[:result_text] = "You must be logged in to change the status of this product!"
-  #   end
-  #   redirect_to merchant_path(@merchant)
-  # end
+  def toggle_inactive
+    if @login_merchant
+      if @product.merchant_id == @login_merchant.id && @product.status == true
+        @product.status = false
+        @product.save
+        return redirect_to merchant_path(session[:user_id])
+      else
+        flash[:status] = :failure
+        flash[:result_text] = "You may only change the status of your own products"
+      end
+    end
+    redirect_to merchant_path(session[:user_id])
+  end
 
   private
 
   def product_params
-    # Need to add additional fields for Product such as photo_url, status, etc.
     params.require(:product).permit(:name, :price, :quantity, :merchant_id, :description, :photo_url, :status, category_ids: [])
   end
 
