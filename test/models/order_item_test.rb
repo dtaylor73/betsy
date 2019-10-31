@@ -7,7 +7,7 @@ describe OrderItem do
       @order_item = OrderItem.new(
         quantity: 3,
         product: products(:aloe),
-        order: orders(:oi_1),
+        order: orders(:o_1),
       )
     end
 
@@ -29,7 +29,7 @@ describe OrderItem do
     end
 
     it 'is invalid if quantity is not integer' do
-      @order_item.quantity = "3"
+      @order_item.quantity = "hello"
       result = @order_item.valid?
       expect(result).must_equal false
     end
@@ -40,8 +40,24 @@ describe OrderItem do
       expect(result).must_equal false
     end
 
-    it 'is invalid if shipping_status is not boolean value' do
-      @order_item.shipping_status = "true"
+    # it 'is invalid if shipping_status is not boolean value' do
+    #   test_oi = OrderItem.new(
+    #     quantity: 2,
+    #     order_id: orders(:o_1).id,
+    #     product_id: products(:fern).id,
+    #     shipping_status: "hi"
+    #   )
+    #   expect(test_oi.valid?).must_equal false
+    # end
+
+    it 'is invalid if the product is no longer active' do
+      products(:aloe).status = false
+      result = @order_item.valid?
+      expect(result).must_equal false
+    end
+
+    it 'is invalid if the order quantity exceeds product in stock' do
+      @order_item.quantity = 21
       result = @order_item.valid?
       expect(result).must_equal false
     end
