@@ -8,20 +8,32 @@ class OrdersController < ApplicationController
 
   end
 
-  def create 
+  def create
     @order = Order.new(order_params)
     if @order.save
       # session can't be accessed in the model, which is why it is living here in the controller. 
-      session[:shopping_cart].each do |product_ids, quantity|
-        OrderItem.create(quantity: quantity, product_id: product_ids, order_id: @order.id, placed_time: Time.now, status: "paid")
-        product = Product.find_by(id: product_ids)
-        product.quantity -= quantity 
-      end 
+      @order.placed_time = Time.now
+      @order.save
 
 
       @order.status = "paid"
+      @order.save
+      
+      
+
+      session[:shopping_cart].each do |product_ids, quantity|
+        
+        order_item = OrderItem.create(quantity: quantity, product_id: product_ids, order_id: @order.id)
+    
+        
+        product = Product.find_by(id: product_ids)
+        product.quantity -= quantity 
+        
+      end 
+
       session[:shopping_cart].clear
       redirect_to confirmation_page_path(@order.id)
+      
       return
     else
       @order.errors.each do |column, message|
@@ -37,6 +49,7 @@ class OrdersController < ApplicationController
   end 
 
   def shopping_cart
+    
     if session[:shopping_cart] != {}
       @product_ids = session[:shopping_cart].keys
     elsif
@@ -46,13 +59,21 @@ class OrdersController < ApplicationController
 
   def confirmation_page
     @order = Order.find_by(id: params[:id])
+    
+    
   end
 
   def remove_product_from_cart
     product = Product.find_by(id: params[:id])
     session[:shopping_cart].delete(product.id.to_s)
-    session[:shopping_cart].keys
-    session[:shopping_cart].values
+
+    if session[:shopping_cart] != {}
+      @product_ids = session[:shopping_cart].keys
+      
+    elsif
+      @product_ids == nil
+    end 
+
     render :shopping_cart
     return
   end 
@@ -64,6 +85,6 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:name, :address, :email, :credit_card_num, :cvv, :zip, :expiration_date)
+    params.require(:order).permit(:name, :address, :email, :credit_card_num, :cvv, :zip, :expiration_date, :status)
   end
 end

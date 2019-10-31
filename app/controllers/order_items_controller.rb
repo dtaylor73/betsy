@@ -1,8 +1,8 @@
 class OrderItemsController < ApplicationController
 
-  private
+  # private
   
-  def product_params
-    params.require(:product).permit(:name, :price, :quantity, :merchant_id, :description, :photo_url, :status, category_ids: [])
-  end
+  # def product_params
+  #   params.require(:product).permit(:name, :price, :quantity, :merchant_id, :description, :photo_url, :status, category_ids: [])
+  # end
 end

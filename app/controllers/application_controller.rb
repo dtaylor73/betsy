@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
 
   def set_cart
     session[:shopping_cart] ||= {}
+    # if session[:shopping_cart] is true/has something in it, then keep what is in it. Otherwise, set it
+    # to an empty hash. 
   end 
 
   def current_merchant

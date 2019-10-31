@@ -82,6 +82,8 @@ class ProductsController < ApplicationController
   def add_product_to_cart
     current_product = @product
     product_order_quantity = params[:quantity].to_i
+    
+
 
     if current_product.quantity > product_order_quantity
       session[:shopping_cart][current_product.id] = product_order_quantity
