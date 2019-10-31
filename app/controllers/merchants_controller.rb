@@ -10,7 +10,8 @@ class MerchantsController < ApplicationController
     if @current_merchant.id.to_s == params[:id]
       @merchant = Merchant.find_by(id: params[:id])
     else
-      flash[:error] = "You have no authorization access to this page"
+      flash[:status] = :error
+      flash[:result_text] = "You have no authorization access to this page"
       return redirect_to root_path
     end
   end
@@ -20,13 +21,16 @@ class MerchantsController < ApplicationController
 
     merchant = Merchant.find_by(UID: auth_hash[:uid], provider: "github")
     if merchant
-      flash[:success] = "Logged in as returning merchant #{merchant.username}"
+      flash[:status] = :success
+      flash[:result_text] = "Logged in as returning merchant #{merchant.username}"
     else
       merchant = Merchant.build_from_github(auth_hash)
       if merchant.save
-        flash[:success] = "Logged in as new merchant #{merchant.username}"
+        flash[:status] = :success
+        flash[:result_text] = "Logged in as new merchant #{merchant.username}"
       else
-        flash[:error] = "Could not create new merchant account: #{merchant.errors.messages}"
+        flash[:status] = :error
+        flash[:result_text] = "Could not create new merchant account: #{merchant.errors.messages}"
         return redirect_to root_path
       end
     end
@@ -37,8 +41,8 @@ class MerchantsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    flash[:success] = "Successfully logged out!"
-    
+    flash[:status] = :success
+    flash[:result_text] = "Successfully logged out!"
     redirect_to root_path
   end
 end

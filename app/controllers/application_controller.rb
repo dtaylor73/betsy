@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
 
   def find_merchant
     if current_merchant.nil?
-      flash[:error] = "You must log in to access this page"
+      flash[:status] = :error
+      flash[:result_text] = "You must log in to access this page"
       return redirect_to root_path
     end
   end
