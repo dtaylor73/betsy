@@ -23,10 +23,11 @@ class OrderItemsController < ApplicationController
         flash[:result_text] = "#{@order_item.product.name} has been marked as shipped"
       else
         flash[:status] = :error
-        flash[:result_text] = "somthing went wrong. please try again"
+        flash[:result_text] = "Somthing went wrong. Please try again"
       end
     else
-      
+      flash[:status] = :error
+      flash[:result_text] = "#{@order_item.product.name} is either been shipped or not ready for shippment"
     end
   end
 
