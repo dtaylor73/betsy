@@ -12,20 +12,20 @@
 
   <body>
 
-    <ul class="nav app-header__user-nav-container">
-      <% if session[:user_id].nil? %>
-        <li class="nav-item app-header__nav_item">
-          <%= link_to "Login with GitHub", github_login_path, class: "btn btn-primary" %>
-        </li>
-      <% else %>
-        <li class="nav-item app-header__nav_item">
-          <%= link_to "MY ACCOUNT", merchant_path(session[:user_id]), class: "btn btn-primary" %>
-        </li>
-        <li class="nav-item app-header__nav_item">
-          <%= link_to "Logout", logout_path, class: "btn btn-primary", method: :post %>
-        </li>
-      <% end %>
-    </ul>
+    <%# <ul class="nav app-header__user-nav-container"> %>
+      <%# <% if session[:user_id].nil? %>
+        <%# <li class="nav-item app-header__nav_item"> %>
+          <%# <%= link_to "Login with GitHub", github_login_path, class: "btn btn-primary" %>
+        <%# </li> %>
+      <%# <% else %>
+        <%# <li class="nav-item app-header__nav_item"> %>
+          <%# <%= link_to "MY ACCOUNT", merchant_path(session[:user_id]), class: "btn btn-primary" %>
+        <%# </li> %>
+        <%# <li class="nav-item app-header__nav_item"> %>
+          <%# <%= link_to "Logout", logout_path, class: "btn btn-primary", method: :post %>
+        <%# </li> %>
+      <%# <% end %>
+    <%# </ul> %>
 
     <br>
     <nav class="nav-bar">
@@ -58,6 +58,16 @@
             <%# <%= link_to "Add a Passenger", new_passenger_path %>
           </div>
       </div>
+
+      <div>  
+        <% if session[:user_id].nil? %>
+            <button class="home-button"><%= link_to "Login with GitHub", github_login_path %></button>
+        <% else %>
+            <button class="home-button"><%= link_to "MY ACCOUNT", merchant_path(session[:user_id]) %></button>
+            <button class="home-button"><%= link_to "Logout", logout_path, method: :post %></button>
+        <% end %>
+      </div>
+
     </nav>
 
   <% if flash[:result_text] or flash[:messages] %>

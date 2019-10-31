@@ -25,7 +25,7 @@
   font-family: "Amatic SC";
 }
 
-.product-title {
+.product-title, .merchant-summary {
   text-align: center;
 }
 
@@ -56,10 +56,10 @@ nav {
 
 .nav-bar {
   background-color: lightgrey;
-  padding: 15px;
+  padding: 10px;
   vertical-align: center;
   display: grid;
-  grid-template-columns: 75% auto auto auto;
+  grid-template-columns: 70% auto auto auto auto;
 }
 
 // Navigation buttons
@@ -161,10 +161,12 @@ img {
   padding: 10rem;
 }
 
-.reviews li {
+.list-unstyled {
   list-style: none;
 }
 
 .prod-section {
   text-align: center;
 }
+
+// Merchant

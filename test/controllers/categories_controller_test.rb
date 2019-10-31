@@ -1,40 +1,39 @@
 require "test_helper"
 
-# describe CategoriesController do
-#   describe "index action" do
-#     it "gives back a successful response" do
-#       get categories_path
-#       must_respond_with :success
-#     end
+describe CategoriesController do
+  describe "new" do
+    it "should get the new form" do
+      get new_category_path
 
-#     it "gives back a 404 if there are no works available" do
-#       get categories_path
-#     end
-#   end
+      must_respond_with :success
+    end
+  end
 
-#   describe "show action" do
-#     it "responds with a success when id given exists" do
-#       valid_work = Category.first
+  describe "create" do
+    it "can create a new category" do
+      new_category = {
+        category: {
+          name: "new category",
+        },
+      }
 
-#       get category_path(valid_category.id)
+      expect {
+        post categories_path, params: new_category
+      }.must_change "Category.count", 1
+    end
 
-#       must_respond_with :success
-#     end
-#   end
+    it "will not create a new category with bad data" do
+      category_hash = {
+        category: {
+          name: "",
+        },
+      }
 
-#   describe "show action" do
-#     it "responds with a success when id given exists" do
-#       valid_category = Category.first
+      expect {
+        post categories_path, params: category_hash
+      }.wont_change "Category.count"
 
-#       get category_path(valid_category.id)
-
-#       must_respond_with :success
-#     end
-
-#     it "responds with a not_found when id given does not exist" do
-#       get category_path("500")
-
-#       must_respond_with :redirect
-#     end
-#   end
-# end
+      must_respond_with :bad_request
+    end
+  end
+end
