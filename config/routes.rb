@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   resources :products
   resources :categories
   resources :orders
-  resources :order_items, only: [:create]
   
   resources :merchants do
     resources :products, only: [:index, :new]
@@ -15,6 +14,8 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
 
+  resources :order_items, only: [:create, :edit]
+
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
   post "/logout", to: "merchants#destroy", as: "logout"
@@ -22,4 +23,6 @@ Rails.application.routes.draw do
   
   patch "/products/:id/active", to: "products#toggle_active", as: "toggle_active"
   patch "/drivers/:id/inactive", to: "products#toggle_inactive", as: "toggle_inactive"
+
+  patch "/orderitems/:id/shipped", to: "orderitems#shipped", as: "shipped"
 end
