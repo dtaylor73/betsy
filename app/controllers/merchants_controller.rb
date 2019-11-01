@@ -1,24 +1,28 @@
 class MerchantsController < ApplicationController
+  before_action :find_merchant, except: [:index, :create]
+
   def index
     @merchants = Merchant.all
   end
 
   def show
-    @merchant = Merchant.find_by(id: params[:id])
-
-    if @merchant.nil?
-      head :not_found
-      return
+    current_merchant
+    if @current_merchant.id.to_s == params[:id]
+      @merchant = Merchant.find_by(id: params[:id])
+    else
+      flash[:status] = :error
+      flash[:result_text] = "You have no authorization access to this page"
+      return redirect_to root_path
     end
   end
 
-  def current
-    @merchant = Merchant.find(session[:merchant_id])
-    if @merchant.nil?
-      head :not_found
-      return
-    end
-  end
+  # def current
+  #   @merchant = Merchant.find(session[:merchant_id])
+  #   if @merchant.nil?
+  #     head :not_found
+  #     return
+  #   end
+  # end
 
   def create
     auth_hash = request.env["omniauth.auth"]
@@ -32,20 +36,20 @@ class MerchantsController < ApplicationController
         flash[:success] = "Logged in as new merchant #{merchant.username}"
       else
         flash[:error] = "Could not create new merchant account: #{merchant.errors.messages}"
-        redirect_to merchants_path
+        redirect_to root_path
         return
       end
     end
 
     session[:user_id] = merchant.id
-    redirect_to merchants_path
-    return
+    return redirect_to root_path
   end
 
   def destroy
     session[:user_id] = nil
-    flash[:success] = "Successfully logged out!"
+    flash[:status] = :success
+    flash[:result_text] = "Successfully logged out!"
 
-    redirect_to merchants_path
+    redirect_to root_path
   end
 end
