@@ -14,7 +14,7 @@ we've shipped it.</h4><br>
         <tr>
           <td><%= image_tag product.photo_url, alt: "image of plant product"%></td>
           <td><%= product.name%></td>
-          <td>Quantity: <%= product.quantity%></td>
+          <td>Quantity: <%= order_item.quantity%></td>
           <td><%= link_to "Product Page", product_path(product.id)%></td>
           <td>Price: <%= product.price%></td>
         </tr>

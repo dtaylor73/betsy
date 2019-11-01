@@ -21,7 +21,8 @@ class Product < ApplicationRecord
     total_price = 0
     order.order_items.each do |order_item|
       product = Product.find_by(id: order_item.product_id)
-      total_price += product.price
+      total_price += (product.price * order_item.quantity)
+      
     end
     return total_price
   end 
