@@ -8,7 +8,6 @@ star:
   email: patrickstar@gmail.com
   UID: 321
   provider: github
-  
 bob:
   username: Bob
   email: bob@plant.com

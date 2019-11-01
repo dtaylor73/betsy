@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
 
   before_action :find_merchant
 
-  # def current_merchant
-  #   @current_merchant ||= Merchant.find(session[:user_id]) if session[:user_id]
-  # end
+  def current_merchant
+    @current_merchant ||= Merchant.find(session[:user_id]) if session[:user_id]
+  end
 
   private
 

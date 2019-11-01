@@ -29,8 +29,7 @@ class MerchantsController < ApplicationController
         flash[:status] = :success
         flash[:result_text] = "Logged in as new merchant #{merchant.username}"
       else
-        flash[:status] = :error
-        flash[:result_text] = "Could not create new merchant account: #{merchant.errors.messages}"
+        flash[:error] = "Could not create new merchant account: #{merchant.errors.messages}"
         return redirect_to root_path
       end
     end
@@ -43,6 +42,7 @@ class MerchantsController < ApplicationController
     session[:user_id] = nil
     flash[:status] = :success
     flash[:result_text] = "Successfully logged out!"
+
     redirect_to root_path
   end
 end

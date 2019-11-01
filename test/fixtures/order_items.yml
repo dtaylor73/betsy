@@ -1,6 +1,6 @@
 oi_1:
   quantity: 1
-  product: aloe 
+  product: aloe
   order: o_1
   shipping_status: false
 
