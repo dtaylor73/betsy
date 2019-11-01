@@ -12,7 +12,7 @@
     <%= form_with model: @order_item, class: "#{action_name}-product" do |f| %>
       <%= f.label :quantity %>
       <%= f.select :quantity, options_for_select(1..20), {}, {class: "form-control"} %>
-      <%= f.submit "Add to Cart", class: "btn btn-primary" %>
+      <%= f.submit "Add to Cart", class: "btn btn-success" %>
     <% end %>
 
     Description: <%= @product.description%> <br>
@@ -21,7 +21,7 @@
     <% end %>
     <br>
     <br>
-    <%= link_to "Review this Product", new_product_review_path(@product.id), class: "btn btn-primary" %>
+    <%= link_to "Review this Product", new_product_review_path(@product.id), class: "btn btn-success" %>
   </div>
 
   <section class="reviews-container">
