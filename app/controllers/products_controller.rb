@@ -45,7 +45,7 @@ class ProductsController < ApplicationController
       if @product.save
         flash[:status] = :success
         flash[:result_text] = "Product has been successfully created"
-        redirect_to products_path
+        redirect_to merchant_path(@login_merchant)
       else
         flash[:status] = :failure
         flash[:result_text] = "Invalid product info. Please try again."

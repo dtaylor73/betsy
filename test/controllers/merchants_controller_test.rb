@@ -2,12 +2,11 @@ require "test_helper"
 
 describe MerchantsController do
   let(:merchant_one) { merchants(:sponge) }
-
+  
   describe "auth_callback" do
     it "logs in an exisiting merchant and redirects to the root route" do
       start_count = Merchant.count
       merchant = merchants(:sponge)
-
       perform_login(merchant)
       expect(session[:user_id]).must_equal merchant.id
 
@@ -22,8 +21,6 @@ describe MerchantsController do
       expect(session[:user_id]).must_equal Merchant.last.id
       expect(Merchant.count).must_equal start_count + 1
       must_redirect_to root_path
-
-      # must_redirect_to root_path
     end
 
     it "redirects to the login route if given invalid merchant data" do
@@ -34,10 +31,9 @@ describe MerchantsController do
 
       expect { get auth_callback_path(:github) }.wont_change start_count
       must_redirect_to root_path
-
-      # must_redirect_to root_path
     end
   end
+
 
   describe "logged in merchants" do
     before do

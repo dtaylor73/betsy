@@ -70,6 +70,7 @@ nav {
   padding: 16px;
   font-size: 20px;
   border: none;
+  margin-top: 20px;
 }
 
 .home-button a {
@@ -82,9 +83,19 @@ nav {
   color: white;
 }
 
+.title-div {
+  display: inline;
+  text-align: center;
+}
+
 .title-section {
   display: inline;
   padding-right: 50px;
+  font-size: 4rem;
+}
+
+.login_out {
+  margin-top: 40px;
 }
 
 .dropbtn {
@@ -93,6 +104,7 @@ nav {
   padding: 16px;
   font-size: 20px;
   border: none;
+  margin-top: 20px;
 }
 
 .dropdown {

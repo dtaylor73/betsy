@@ -61,6 +61,7 @@ describe Merchant do
       product.merchant.must_be_kind_of Merchant
     end
 
+
     it "has a list of order_items" do
       star = merchants(:star)
       star.must_respond_to :order_items
@@ -88,3 +89,4 @@ describe Merchant do
     end
   end
 end
+
