@@ -71,10 +71,10 @@ ActiveRecord::Schema.define(version: 2019_11_01_020433) do
     t.integer "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "merchant_id"
     t.string "description"
     t.string "photo_url", default: "https://i.imgur.com/CSul8N3.jpg"
     t.boolean "status", default: true
+    t.bigint "merchant_id"
     t.index ["merchant_id"], name: "index_products_on_merchant_id"
   end
 
