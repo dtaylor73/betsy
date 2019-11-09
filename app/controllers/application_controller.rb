@@ -18,14 +18,19 @@ class ApplicationController < ActionController::Base
     # if session[:shopping_cart] is true/has something in it, then keep what is in it. Otherwise, set it
     # to an empty hash. 
   end 
+  # before_action :find_merchant
+
+  before_action :find_merchant
 
   def current_merchant
     @current_merchant ||= Merchant.find(session[:user_id]) if session[:user_id]
   end
 
   def find_merchant
-    if session[:user_id]
-      @login_merchant = Merchant.find_by(id: session[:user_id])
+    if current_merchant.nil?
+      flash[:status] = :error
+      flash[:result_text] = "You must log in to access this page"
+      return redirect_to root_path
     end
   end
 end

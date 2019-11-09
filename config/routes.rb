@@ -14,14 +14,9 @@ Rails.application.routes.draw do
 
   # get "/orders/change_quantity_of_cart/:id", to: "orders#change_quantity_of_cart", as: "change_quantity_of_cart"
 
-  resources :orders
-
   resources :order_items
 
-  resources :categories, only: [:new, :create] do
-    resources :products, only: [:index]
-  end
-  resources :categories
+  # resources :categories
 
   
   resources :merchants do
@@ -33,11 +28,16 @@ Rails.application.routes.draw do
     resources :products, only: [:index]
   end
 
+  # nested reviews under products
+  resources :products do
+    resources :reviews, only: [:new, :create]
+  end
+
   get "/auth/github", as: "github_login"
   get "/auth/:provider/callback", to: "merchants#create", as: "auth_callback"
   post "/logout", to: "merchants#destroy", as: "logout"
   get "/merchants/current", to: "merchants#current", as: "current_merchant"
-  
+
   patch "/products/:id/active", to: "products#toggle_active", as: "toggle_active"
 
   root 'homepages#index'

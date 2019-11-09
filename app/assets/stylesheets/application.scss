@@ -37,7 +37,7 @@
   font-family: "Amatic SC";
 }
 
-.product-title {
+.product-title, .merchant-summary {
   text-align: center;
 }
 
@@ -68,10 +68,10 @@ nav {
 
 .nav-bar {
   background-color: lightgrey;
-  padding: 15px;
+  padding: 10px;
   vertical-align: center;
   display: grid;
-  grid-template-columns: 50% auto auto auto auto;
+  grid-template-columns: 70% auto auto auto auto;
 }
 
 // Navigation buttons
@@ -82,6 +82,7 @@ nav {
   padding: 16px;
   font-size: 20px;
   border: none;
+  margin-top: 20px;
 }
 
 .home-button a {
@@ -94,9 +95,19 @@ nav {
   color: white;
 }
 
+.title-div {
+  display: inline;
+  text-align: center;
+}
+
 .title-section {
   display: inline;
   padding-right: 50px;
+  font-size: 4rem;
+}
+
+.login_out {
+  margin-top: 40px;
 }
 
 .dropbtn {
@@ -105,6 +116,7 @@ nav {
   padding: 16px;
   font-size: 20px;
   border: none;
+  margin-top: 20px;
 }
 
 .dropdown {
@@ -173,10 +185,12 @@ img {
   padding: 10rem;
 }
 
-.reviews li {
+.list-unstyled {
   list-style: none;
 }
 
 .prod-section {
   text-align: center;
 }
+
+// Merchant
