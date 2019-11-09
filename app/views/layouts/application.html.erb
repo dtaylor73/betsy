@@ -24,7 +24,6 @@
             <% Category.all.each do |category| %>
             <%= link_to category.name, category_products_path(category.id) %>
           <% end %>
-          <%#<%= link_to "Add a Product", new_product_path %>
         </div>
       </div>
       
@@ -35,7 +34,6 @@
             <% Merchant.all.each do |merchant| %>
             <%= link_to merchant.username, merchant_products_path(merchant.id) %>
           <% end %>
-            <%# <%= link_to "Add a Passenger", new_passenger_path %>
           </div>
       </div>
 
@@ -66,6 +64,13 @@
       </div>
     </section>
   <% end %>
+
+    <section class="flash">
+    <% flash.each do |name, message| %>
+      <div class="<%= name %>"><%= message %></div>
+    <% end %>
+  </section>
+
 
     <%= yield %>
     <footer class="page-footer font-small">

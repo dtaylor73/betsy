@@ -17,6 +17,18 @@
 /* Import scss content */
 @import "**/*";
 
+
+.success {
+  background-color: green;
+}
+
+.failure {
+  background-color: red;
+}
+
+.error {
+  background-color: red;
+}
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
 
 // For all elements

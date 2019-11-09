@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find_product, only: [:show, :edit, :update, :destroy, :toggle_active, :toggle_inactive]
+  before_action :find_product, only: [:show, :edit, :update, :destroy, :toggle_active, :toggle_inactive, :add_product_to_cart]
 
   def index
     if params[:merchant_id]
